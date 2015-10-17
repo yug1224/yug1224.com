@@ -1,0 +1,38 @@
+extends lib/layout.jade
+
+block head
+
+block content
+  article
+    header.page-header
+      .meta
+        span.glyphicon.glyphicon-calendar.icon
+        time.time(datetime=post.datetime, pubdate)!= post.date
+        span.glyphicon.glyphicon-tag.icon
+        each category in post.categories
+          span.category
+            a(href="/categories/"+category)!= category
+    h1.entry-title!= post.title
+    include lib/share
+    .entry-content!= post.body
+    footer
+      include lib/share
+      include lib/ad
+      .meta
+        span.glyphicon.glyphicon-calendar.icon
+        time.time(datetime=post.datetime, pubdate)!= post.date
+        span.glyphicon.glyphicon-tag.icon
+        each category in post.categories
+          span.category
+            a(href="/categories/"+category)!= category
+
+  ul.pager
+    if prev
+      li.previous
+        a(href="/posts/"+prev._id)
+          |&larr; #{prev.title}
+
+    if next
+      li.next
+        a(href="/posts/"+next._id)
+          |#{next.title} &rarr;

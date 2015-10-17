@@ -1,0 +1,34 @@
+doctype html
+html(lang=lang)
+  head
+    title!= title
+    meta(charset="UTF-8")
+    meta(content="width=device-width, minimum-scale=1.0, maximum-scale=1.0", name="viewport")
+    link(rel="icon", type="image/png", href="/favicon.png")
+    link(rel="apple-touch-icon", href=image)
+    link(rel="stylesheet", href="/css/app.css")
+
+    // Google ウェブマスターツール
+    meta(name="google-site-verification", content="UnFxiSPluNvTkHKrlWyPHBPeQqe7nl9af7oWjMEKbs4")
+
+    // Google Analytics Tracking Code
+    include analytics
+
+    // OGP
+    include ogp
+
+    block head
+
+  body
+    include header
+
+    .container
+      .row
+        article.col-xs-12.col-sm-8.main
+          block content
+        aside.col-xs-12.col-sm-4
+          include categories
+
+    script(src="/js/app.js")
+
+    block scripts
