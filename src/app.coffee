@@ -40,14 +40,19 @@ app.use cookieParser()
 
 # URLルーティング
 pages = require "./routes/pages"
-posts = require "./routes/posts"
-archive = require "./routes/archive"
+archives = require "./routes/archives"
+categories = require  "./routes/categories"
 app.get "/", pages.show
 app.get "/pages/:page", pages.show
-app.get "/posts/:_id", posts.show
-app.get "/archive", archive.show
-# app.get "/archives", route.archives
-# app.get "/categories/:ctg", route.categories
+if "development" is process.env.NODE_ENV
+  app.get "/archives/new", archives.new
+  app.post "/archives/", archives.create
+  app.get "/archives/:_id/edit", archives.edit
+  app.put "/archives/:_id", archives.update
+  app.delete "/archives/:_id", archives.destroy
+app.get "/archives", archives.index
+app.get "/archives/:_id", archives.show
+app.get "/categories/:category", categories.show
 
 # APIルーティング
 # files = []

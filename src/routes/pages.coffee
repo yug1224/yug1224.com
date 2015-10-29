@@ -18,33 +18,35 @@ exports.show = (req, res) ->
 
   Promise.all [
     common.getCategories()
-    common.getPosts({}, {}, sort, skip, limit)
+    common.getArchives({}, {}, sort, skip, limit)
     common.getCount({}, sort, skip+limit, limit)
   ]
     .then (results) ->
-      posts = results[1]
+      archives = results[1]
 
-      if posts.length is 0
+      if archives.length is 0
         res.sendStatus(404)
       else
-        for post in posts
-          post.datetime = moment(post.date).format  "YYYY-MM-DD HH:mm"
-          post.date = moment(post.date).format "MMM DD, YYYY"
-          post.body = md post.body
-          post.intro = post.body.split("<!-- more -->")[0]
+        for archive in archives
+          archive.datetime = moment(archive.date).format  "YYYY-MM-DD HH:mm"
+          archive.date = moment(archive.date).format "MMM DD, YYYY"
+          archive.body = md archive.body
+          archive.intro = archive.body.split("<!-- more -->")[0]
 
         data =
+          blog:
+            title: config.blog.title
           title: config.blog.title
           categories: results[0]
-          posts: posts
+          archives: archives
           image: config.twitter.image
 
         if results[2] > 0
-          data.prev = "/pages/#{page + 1}"
+          data.next = "/pages/#{page + 1}"
         if page > 2
-          data.next = "/pages/#{page - 1}"
+          data.prev = "/pages/#{page - 1}"
         else if page is 2
-          data.next = "/"
+          data.prev = "/"
 
         data.ogp =
           card: config.twitter.card
@@ -55,9 +57,10 @@ exports.show = (req, res) ->
           image: config.twitter.image
           url: config.blog.url
 
-        res.status(200).render "page", data
+        res.status(200).render "pages_show", data
       return
     .catch (err) ->
+      console.log err.stack
       res.status(500).send(err)
       return
   return
