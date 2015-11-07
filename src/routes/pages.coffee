@@ -12,7 +12,7 @@ exports.show = (req, res) ->
   res.locals.lang = "ja"
 
   page = if req.params.page then +req.params.page else 1
-  sort = date: -1
+  sort = create: -1
   limit = 5
   skip = limit * ( page - 1)
 
@@ -28,8 +28,8 @@ exports.show = (req, res) ->
         res.sendStatus(404)
       else
         for archive in archives
-          archive.datetime = moment(archive.date).format  "YYYY-MM-DD HH:mm"
-          archive.date = moment(archive.date).format "MMM DD, YYYY"
+          archive.datetime = moment(archive.create).format  "YYYY-MM-DD HH:mm"
+          archive.date = moment(archive.create).format "MMM DD, YYYY"
           archive.body = md archive.body
           archive.intro = archive.body.split("<!-- more -->")[0]
 

@@ -38,18 +38,26 @@ app.use cookieParser()
 #   next()
 #   return
 
+# 昔のURLをリダイレクト
+redirect = require "./routes/redirect"
+app.use (req, res, next) ->
+  if (req.method in ["GET", "HEAD"]) && redirect[req.url]
+    res.redirect 301, "/archives#{redirect[req.url]}"
+  next()
+  return
+
 # URLルーティング
 pages = require "./routes/pages"
 archives = require "./routes/archives"
 categories = require  "./routes/categories"
 app.get "/", pages.show
 app.get "/pages/:page", pages.show
-if "development" is process.env.NODE_ENV
-  app.get "/archives/new", archives.new
-  app.post "/archives/", archives.create
-  app.get "/archives/:_id/edit", archives.edit
-  app.put "/archives/:_id", archives.update
-  app.delete "/archives/:_id", archives.destroy
+# if "development" is process.env.NODE_ENV
+#   app.get "/archives/new", archives.new
+#   app.post "/archives/", archives.create
+#   app.get "/archives/:_id/edit", archives.edit
+#   app.put "/archives/:_id", archives.update
+#   app.delete "/archives/:_id", archives.destroy
 app.get "/archives", archives.index
 app.get "/archives/:_id", archives.show
 app.get "/categories/:category", categories.show

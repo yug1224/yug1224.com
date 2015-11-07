@@ -16,10 +16,10 @@ exports.show = (req, res) ->
   field =
     _id: 1
     title: 1
-    date: 1
+    create: 1
     categories: 1
   sort =
-    date: -1
+    create: -1
 
   Promise.all [
     common.getCategories()

@@ -4,7 +4,7 @@ md = require "marked"
 md.setOptions
   highlight: (code) ->
     return require('highlight.js').highlightAuto(code).value
-
+ObjectId = require("mongojs").ObjectId
 config = require "../config"
 common = require "./lib/common"
 
@@ -14,10 +14,10 @@ exports.index = (req, res) ->
   field =
     _id: 1
     title: 1
-    date: 1
+    create: 1
     categories: 1
   sort =
-    date: -1
+    create: -1
 
   Promise.all [
     common.getCategories()
@@ -30,8 +30,8 @@ exports.index = (req, res) ->
         res.sendStatus(404)
       else
         for archive in archives
-          archive.datetime = moment(archive.date).format  "YYYY-MM-DD HH:mm"
-          archive.date = moment(archive.date).format "MMM DD, YYYY"
+          archive.datetime = moment(archive.create).format  "YYYY-MM-DD HH:mm"
+          archive.date = moment(archive.create).format "MMM DD, YYYY"
 
         data =
           blog:
@@ -61,10 +61,10 @@ exports.show = (req, res) ->
   res.locals.lang = "ja"
 
   query =
-    _id: req.params._id
+    _id: new ObjectId req.params._id
   field =
     title: 1
-    date: 1
+    create: 1
   limit = 1
 
   Promise.all [
@@ -83,8 +83,8 @@ exports.show = (req, res) ->
       unless archive
         res.sendStatus(404)
       else
-        archive.datetime = moment(archive.date).format  "YYYY-MM-DD HH:mm"
-        archive.date = moment(archive.date).format "MMM DD, YYYY"
+        archive.datetime = moment(archive.create).format  "YYYY-MM-DD HH:mm"
+        archive.date = moment(archive.create).format "MMM DD, YYYY"
         archive.body = md archive.body
 
         data =
@@ -117,85 +117,85 @@ exports.show = (req, res) ->
       return
   return
 
-exports.new = (req, res) ->
-  res.locals.lang = "ja"
-
-  data =
-    archive:
-      _id: null
-      datetime: moment(new Date()).format "YYYY-MM-DD HH:mm"
-      categories: []
-      title: ""
-      body: ""
-      image: null
-
-  res.status(200).render "archives_upsert", data
-  return
-
-exports.edit = (req, res) ->
-  res.locals.lang = "ja"
-
-  query =
-    _id: req.params._id
-  common.getArchives(query, {}, {}, null, 1)
-    .then (results) ->
-      archive = results[0]
-      unless archive
-        res.sendStatus(404)
-      else
-        data =
-          archive:
-            _id: archive._id
-            datetime: moment(archive.date).format "YYYY-MM-DD HH:mm"
-            categories: archive.categories
-            title: archive.title
-            body: archive.body
-            image: archive.image
-        res.status(200).render "archives_upsert", data
-      return
-    .catch (err) ->
-      console.log err.stack
-      res.sendStatus(500)
-      return
-  return
-exports.create = (req, res) ->
-  res.locals.lang = "ja"
-
-  data = req.body
-  data.date = new Date data.date
-  data.categories = if data.categories then data.categories.split(",") else []
-
-  common.setArchives {}, data
-    .then (results) ->
-      res.sendStatus(200)
-    .catch (err) ->
-      res.sendStatus(500)
-  return
-exports.update = (req, res) ->
-  res.locals.lang = "ja"
-
-  query =
-    _id: req.params._id
-  data = req.body
-  data.date = new Date data.date
-  data.categories = if data.categories then data.categories.split(",") else []
-
-  common.setArchives query, data
-    .then (results) ->
-      res.sendStatus(200)
-    .catch (err) ->
-      console.log err.stack
-      res.sendStatus(500)
-  return
-exports.destroy = (req, res) ->
-  res.locals.lang = "ja"
-
-  query =
-    _id: req.params._id
-  common.removeArchives query
-    .then (results) ->
-      res.sendStatus(200)
-    .catch (err) ->
-      console.log err.stack
-      res.sendStatus(500)
-  return
+# exports.new = (req, res) ->
+#   res.locals.lang = "ja"
+#
+#   data =
+#     archive:
+#       _id: null
+#       datetime: moment(new Date()).format "YYYY-MM-DD HH:mm"
+#       categories: []
+#       title: ""
+#       body: ""
+#       image: null
+#
+#   res.status(200).render "archives_upsert", data
+#   return
+#
+# exports.edit = (req, res) ->
+#   res.locals.lang = "ja"
+#
+#   query =
+#     _id: req.params._id
+#   common.getArchives(query, {}, {}, null, 1)
+#     .then (results) ->
+#       archive = results[0]
+#       unless archive
+#         res.sendStatus(404)
+#       else
+#         data =
+#           archive:
+#             _id: archive._id
+#             datetime: moment(archive.date).format "YYYY-MM-DD HH:mm"
+#             categories: archive.categories
+#             title: archive.title
+#             body: archive.body
+#             image: archive.image
+#         res.status(200).render "archives_upsert", data
+#       return
+#     .catch (err) ->
+#       console.log err.stack
+#       res.sendStatus(500)
+#       return
+#   return
+# exports.create = (req, res) ->
+#   res.locals.lang = "ja"
+#
+#   data = req.body
+#   data.date = new Date data.date
+#   data.categories = if data.categories then data.categories.split(",") else []
+#
+#   common.setArchives {}, data
+#     .then (results) ->
+#       res.sendStatus(200)
+#     .catch (err) ->
+#       res.sendStatus(500)
+#   return
+# exports.update = (req, res) ->
+#   res.locals.lang = "ja"
+#
+#   query =
+#     _id: req.params._id
+#   data = req.body
+#   data.date = new Date data.date
+#   data.categories = if data.categories then data.categories.split(",") else []
+#
+#   common.setArchives query, data
+#     .then (results) ->
+#       res.sendStatus(200)
+#     .catch (err) ->
+#       console.log err.stack
+#       res.sendStatus(500)
+#   return
+# exports.destroy = (req, res) ->
+#   res.locals.lang = "ja"
+#
+#   query =
+#     _id: req.params._id
+#   common.removeArchives query
+#     .then (results) ->
+#       res.sendStatus(200)
+#     .catch (err) ->
+#       console.log err.stack
+#       res.sendStatus(500)
+#   return
