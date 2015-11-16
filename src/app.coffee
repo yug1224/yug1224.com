@@ -59,6 +59,11 @@ app.get "/archives/:_id", archives.show
 app.get "/categories/:category", categories.show
 app.get "/atom.xml", xml.atom
 app.get "/sitemap.xml", xml.sitemap
+app.get "/robots.txt", (req, res) ->
+  res.set "Content-Type", "text/plain"
+  res.status(200).render "robots", config
+  return
+
 
 # APIルーティング
 # files = []
