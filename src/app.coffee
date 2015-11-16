@@ -50,17 +50,15 @@ app.use (req, res, next) ->
 pages = require "./routes/pages"
 archives = require "./routes/archives"
 categories = require  "./routes/categories"
+xml = require "./routes/xml"
+
 app.get "/", pages.show
 app.get "/pages/:page", pages.show
-# if "development" is process.env.NODE_ENV
-#   app.get "/archives/new", archives.new
-#   app.post "/archives/", archives.create
-#   app.get "/archives/:_id/edit", archives.edit
-#   app.put "/archives/:_id", archives.update
-#   app.delete "/archives/:_id", archives.destroy
 app.get "/archives", archives.index
 app.get "/archives/:_id", archives.show
 app.get "/categories/:category", categories.show
+app.get "/atom.xml", xml.atom
+app.get "/sitemap.xml", xml.sitemap
 
 # APIルーティング
 # files = []
