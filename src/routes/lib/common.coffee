@@ -29,6 +29,9 @@ exports.removeArchives = removeArchives = (query) ->
 
 exports.getArchives = getArchives = (query, field, sort, skip, limit) ->
   return new Promise (resolve, reject) ->
+    if query._id
+      query._id = new ObjectId query._id
+
     db.archives.find query, field
       .sort sort
       .skip skip

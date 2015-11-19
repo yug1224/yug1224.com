@@ -29,7 +29,11 @@ exports.show = (req, res) ->
       archives = results[1]
 
       if archives.length is 0
-        res.sendStatus(404)
+        data =
+          blog: config.blog
+          status: 404
+          content: "Page Not Found"
+        res.status(404).render "error", data
       else
         for archive in archives
           archive.datetime = moment(archive.date).format  "YYYY-MM-DD HH:mm"
@@ -55,6 +59,11 @@ exports.show = (req, res) ->
         res.status(200).render "categories_show", data
       return
     .catch (err) ->
-      res.status(500).send(err)
+      console.log err.stack
+      data =
+        blog: config.blog
+        status: 500
+        content: "Internal Server Error"
+      res.status(500).render "error", data
       return
   return

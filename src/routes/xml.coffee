@@ -1,6 +1,6 @@
 Promise = require("q").Promise
 moment = require "moment"
-ObjectId = require("mongojs").ObjectId
+
 config = require "../config"
 common = require "./lib/common"
 md = require "marked"
@@ -37,7 +37,12 @@ exports.atom = (req, res) ->
       res.status(200).render "atom", data
       return
     .catch (err) ->
-      res.status(500).send(err)
+      console.log err.stack
+      data =
+        blog: config.blog
+        status: 500
+        content: "Internal Server Error"
+      res.status(500).render "error", data
       return
   return
 
@@ -60,6 +65,11 @@ exports.sitemap = (req, res) ->
       res.status(200).render "sitemap", data
       return
     .catch (err) ->
-      res.status(500).send(err)
+      console.log err.stack
+      data =
+        blog: config.blog
+        status: 500
+        content: "Internal Server Error"
+      res.status(500).render "error", data
       return
   return
