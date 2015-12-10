@@ -76,3 +76,18 @@ gulp.task "nodemon", () ->
 
 gulp.task "preview", ["watch"], (done) ->
   runSequence "generate", "nodemon", done
+
+# pub
+gulp.task "pub", ->
+  options =
+    url: "https://yug1224.superfeedr.com/"
+    json: true
+    form:
+      "hub.mode": "publish"
+      "hub.url": "https://blog.yug1224.com/atom.xml"
+
+  request.post options, (err, res, body) ->
+    if err
+      console.log err
+    process.exit()
+    return
