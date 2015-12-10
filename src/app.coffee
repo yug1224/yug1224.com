@@ -71,7 +71,9 @@ app.get "/robots.txt", (req, res) ->
   res.set "Content-Type", "text/plain"
   res.status(200).render "robots", config
   return
-
+app.get "/favicon.png", (req, res) ->
+  res.sendFile "#{__dirname}/favicon.png"
+  return
 
 # APIルーティング
 # files = []
