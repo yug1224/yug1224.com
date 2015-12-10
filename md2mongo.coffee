@@ -11,7 +11,7 @@ fs.readdirSync("./data").forEach (val) ->
   if val.match /\.md/ then files.push val
 
 for val in files
-  data = fm fs.readFileSync "./src/post/#{val}", "utf8"
+  data = fm fs.readFileSync "./data/#{val}", "utf8"
   attr = data.attributes
   date = moment(attr.date, "YYYY-MM-DD HH:mm").toDate()
   doc =

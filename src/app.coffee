@@ -41,8 +41,16 @@ app.use cookieParser()
 # 昔のURLをリダイレクト
 redirect = require "./routes/redirect"
 app.use (req, res, next) ->
-  if (req.method in ["GET", "HEAD"]) && redirect[req.url]
-    res.redirect 301, "/archives#{redirect[req.url]}"
+  url = req.url
+  url = url.replace(/\/$/, "")
+  if (req.method in ["GET", "HEAD"]) && redirect[url]
+    res.redirect 301, "/archives#{redirect[url]}"
+  next()
+  return
+
+# analytics trackingIDを追加
+app.use (req, res, next) ->
+  res.locals.analytics = config.GoogleAnalytics
   next()
   return
 
