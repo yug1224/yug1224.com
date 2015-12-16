@@ -23,6 +23,7 @@
     "coffeeify": "^1.1.0",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.0",
+    "crypto": "0.0.3",
     "cson": "^1.6.1",
     "del": "^0.1.2",
     "express": "^4.8.7",
@@ -51,7 +52,7 @@
     "path": "^0.4.9",
     "q": "^1.4.1",
     "readline": "0.0.3",
-    "request": "^2.48.0",
+    "request": "^2.67.0",
     "run-sequence": "^0.3.7",
     "vinyl-source-stream": "^1.1.0"
   }

@@ -1,14 +1,21 @@
 browserify = require "browserify"
 coffee = require "gulp-coffee"
 concat = require "gulp-concat"
+crypto = require "crypto"
 del = require "del"
 Filter = require "gulp-filter"
+fs = require "fs"
 foreach = require "gulp-foreach"
 gulp = require "gulp"
 runSequence = require "run-sequence"
 minifycss = require "gulp-minify-css"
+moment = require "moment"
 nodemon = require "nodemon"
 path = require "path"
+request = require "request"
+rl = (require "readline").createInterface
+  input: process.stdin
+  output: process.stdout
 stylus = require "gulp-stylus"
 source = require "vinyl-source-stream"
 
@@ -76,6 +83,52 @@ gulp.task "nodemon", () ->
 
 gulp.task "preview", ["watch"], (done) ->
   runSequence "generate", "nodemon", done
+
+# Create new post
+gulp.task "new:post", (done) ->
+  rl.question "Enter a title for your post: ", (input) ->
+    rl.close()
+    unless input
+      md5 = crypto.createHash "md5"
+      md5.update "#{Date.now()}", "utf8"
+      input = md5.digest "hex"
+
+    title = input.match /[a-zA-Z0-9- .]/g
+
+    if title
+      now = new Date()
+      title = title.join ""
+        .replace /\ /g, "-"
+        .replace /[.]/g, "-"
+      filename = "#{moment(now).format('YYYY-MM-DD')}-#{title}"
+      filepath = "./data/#{filename}.md"
+
+      frontMatter = """
+        ---
+        _id:
+        title: #{title}
+        date: #{moment(now).format('YYYY-MM-DD HH:mm')}
+        categories: []
+        image:
+        ---
+
+
+
+        <!-- more -->
+      """
+
+      fs.writeFile filepath, frontMatter, (err) ->
+        if err
+          console.log err
+        else
+          console.log "Creating new post: #{filepath}"
+        done()
+        return
+
+    else
+      console.log "Can't create new post: #{title}"
+      done()
+    return
 
 # pub
 gulp.task "pub", ->
