@@ -2,7 +2,7 @@ config =
   port: 7826
   blog:
     url: "https://blog.yug1224.com"
-    title: "@YuG1224 blog"
+    title: "YuG1224 blog"
     author: "YuG1224"
     description: "プログラミングやカメラや日常のこと。"
   GoogleAnalytics:
