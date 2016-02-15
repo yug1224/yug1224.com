@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "TZ='Asia/Tokyo' NODE_ENV='production' forever start -c coffee src/app.coffee",
-    "mongo": "mongorestore --drop --db blog data/mongodump/blog/",
+    "dump": "mongodump --db blog --out data/mongodump",
+    "restore": "mongorestore --drop --db blog data/mongodump/blog/",
     "nginx": "cp nginx.conf /etc/nginx/nginx.conf && nginx -s reload",
     "stop": "forever stopall"
   },
