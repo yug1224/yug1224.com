@@ -9,7 +9,7 @@ config =
     trackingID: "UA-43402891-1"
     domain: "blog.yug1224.com"
   twitter:
-    card: "summary_large_image"
+    card: "summary"
     site: "@YuG1224"
     image: "https://db.tt/1E6Yu2kp"
 
