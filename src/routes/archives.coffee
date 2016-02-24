@@ -103,6 +103,7 @@ exports.show = (req, res) ->
           title: archive.title
           categories: results[0]
           archive: archive
+          image: config.twitter.image
           prev: prev
           next: next
 
