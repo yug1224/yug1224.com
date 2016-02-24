@@ -11,6 +11,6 @@ config =
   twitter:
     card: "summary"
     site: "@YuG1224"
-    image: "https://db.tt/1E6Yu2kp"
+    image: "https://db.tt/Nfw3zxcJ"
 
 module.exports = config
