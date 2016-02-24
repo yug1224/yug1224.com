@@ -47,6 +47,7 @@
     "http": "0.0.0",
     "jade": "^1.11.0",
     "jquery": "^2.1.1",
+    "jstransformer-verbatim": "^1.0.0",
     "marked": "^0.3.2",
     "moment": "^2.8.2",
     "mongojs": "^1.4.0",
