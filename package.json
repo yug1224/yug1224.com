@@ -5,11 +5,11 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "TZ='Asia/Tokyo' NODE_ENV='production' forever start -c coffee src/app.coffee",
+    "start": "TZ='Asia/Tokyo' NODE_ENV='production' forever start --uid 'blog' -c coffee src/app.coffee",
     "dump": "mongodump --db blog --out data/mongodump",
     "restore": "mongorestore --drop --db blog data/mongodump/blog/",
     "nginx": "cp blog.conf /etc/nginx/conf.d/ && nginx -s reload",
-    "stop": "forever stopall"
+    "stop": "forever stop blog"
   },
   "author": "",
   "license": "MIT",
