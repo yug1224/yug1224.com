@@ -124,6 +124,7 @@ image:
       console.log(`Creating arcive: ${filepath}`);
     }
     done();
+    process.exit();
   });
 });
 
@@ -204,10 +205,12 @@ gulp.task('upsert', (done) => {
     .then(function(results){
       console.log(results);
       done();
+      process.exit();
     })
     .catch(function(err){
       console.log(err);
       done();
+      process.exit();
     });
 });
 

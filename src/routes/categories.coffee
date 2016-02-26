@@ -36,8 +36,8 @@ exports.show = (req, res) ->
         res.status(404).render "error", data
       else
         for archive in archives
-          archive.datetime = moment(archive.date).format  "YYYY-MM-DD HH:mm"
-          archive.date = moment(archive.date).format "MMM DD, YYYY"
+          archive.datetime = moment(archive.create).format  "YYYY-MM-DD HH:mm"
+          archive.date = moment(archive.create).format "MMM DD, YYYY"
 
         data =
           blog:

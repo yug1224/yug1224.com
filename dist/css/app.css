@@ -27,9 +27,10 @@ body .entry-content .amazlet-box{border:1px solid;border-color:#eaeaea #ddd #d0d
 hr,img{border:0}
 body .entry-content .amazlet-box img{min-width:100%;box-shadow:none}
 body .entry-content iframe{max-width:100%}
+body .entry-content .bookmarklet.hatena-embed{margin:0 0 10px!important}
 body .pager{margin-top:50px}
+body .ninja_onebutton{padding:15px 0;margin:0 0 10px}
 body,figure{margin:0}
-body .ninja_onebutton{padding:15px 0}
 body .ad{padding:25px 0;width:100%}
 body blockquote{font-size:16px}
 h1{font-size:30px!important;margin:.67em 0}
