@@ -156,6 +156,7 @@ ${doc.body}
             console.log(`Creating arcive: ${filepath}\n`);
           }
           done();
+          process.exit();
         });
       }
     });
