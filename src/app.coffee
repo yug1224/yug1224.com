@@ -58,6 +58,7 @@ app.use (req, res, next) ->
 pages = require "./routes/pages"
 archives = require "./routes/archives"
 categories = require  "./routes/categories"
+apps = require "./routes/apps"
 xml = require "./routes/xml"
 
 app.get "/", pages.show
@@ -65,6 +66,7 @@ app.get "/pages/:page", pages.show
 app.get "/archives", archives.index
 app.get "/archives/:_id", archives.show
 app.get "/categories/:category", categories.show
+app.get "/apps", apps.index
 app.get "/atom.xml", xml.atom
 app.get "/sitemap.xml", xml.sitemap
 app.get "/robots.txt", (req, res) ->

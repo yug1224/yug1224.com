@@ -1,7 +1,7 @@
 Promise = require("q").Promise
 mongojs = require "mongojs"
 ObjectId = mongojs.ObjectId
-db = mongojs "blog", ["archives"]
+db = mongojs "blog", ["archives", "apps"]
 # Datastore = require "nedb"
 # db = {}
 # db.archives = new Datastore
@@ -100,6 +100,12 @@ exports.getCategories = getCategories = () ->
     operators.push $group: _id: "$categories", count: $sum: 1
     operators.push $sort: count: -1
     db.archives.aggregate operators, (err, results) ->
+      if err then reject err else resolve results
+      return
+
+exports.getApps = getApps = () ->
+  return new Promise (resolve, reject) ->
+    db.apps.find (err, results) ->
       if err then reject err else resolve results
       return
 

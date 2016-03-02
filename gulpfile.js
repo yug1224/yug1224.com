@@ -93,7 +93,7 @@ gulp.task('nodemon', () => {
   nodemon(options);
 });
 
-gulp.task('preview', ['watch'], (done) => {
+gulp.task('default', ['watch'], (done) => {
   runSequence('generate', 'nodemon', done);
 });
 
