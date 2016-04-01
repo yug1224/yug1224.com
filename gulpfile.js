@@ -98,7 +98,7 @@ gulp.task('default', ['watch'], (done) => {
 });
 
 // Create new post
-gulp.task('new', (done) => {
+gulp.task('new:post', (done) => {
   let now = new Date();
   let _id = new ObjectId();
   let filepath = `./data/${_id}.md`;
@@ -129,7 +129,7 @@ image:
 });
 
 // Edit post
-gulp.task('edit', (done) => {
+gulp.task('edit:post', (done) => {
   rl.question('Enter arcive\'s _id: ', (input) => {
     rl.close();
 
@@ -166,7 +166,7 @@ ${doc.body}
 
 
 // upsert
-gulp.task('upsert', (done) => {
+gulp.task('upsert:post', (done) => {
   let files = [];
   let promises = [];
   fs.readdirSync('./data').forEach(function(val){

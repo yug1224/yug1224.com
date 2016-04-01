@@ -9,7 +9,11 @@
     "dump": "mongodump --db blog --out data/mongodump",
     "restore": "mongorestore --drop --db blog data/mongodump/blog/",
     "nginx": "cp blog.conf /etc/nginx/conf.d/ && nginx -s reload",
-    "stop": "forever stop blog"
+    "stop": "forever stop blog",
+    "new:post": "gulp new:post",
+    "edit:post": "gulp edit:post",
+    "upsert:post": "gulp upsert:post",
+    "pub": "gulp pub"
   },
   "author": "",
   "license": "MIT",
