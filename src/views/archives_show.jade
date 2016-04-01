@@ -13,11 +13,10 @@ block content
           span.category
             a(href="/categories/"+category)!= category
     h1.entry-title!= archive.title
-    include lib/share
+    include lib/ad
     .entry-content!= archive.body
     footer
       include lib/share
-      include lib/ad
       .meta
         span.glyphicon.glyphicon-calendar.icon
         time.time(datetime=archive.datetime, pubdate)!= archive.date
