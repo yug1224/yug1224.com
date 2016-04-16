@@ -24,10 +24,11 @@ body .entry-content img{position:relative;max-width:100%;min-width:300px;border:
 body .entry-content h2,body .entry-content h3{border-left:10px solid #007bbb;padding-left:5px}
 body .entry-content h2{border-bottom:2px solid #007bbb;margin-top:30px;margin-bottom:30px}
 body .entry-content .amazlet-box{border:1px solid;border-color:#eaeaea #ddd #d0d0d0;border-radius:5px;padding:10px;margin-bottom:10px!important;max-width:468px}
-hr,img{border:0}
 body .entry-content .amazlet-box img{min-width:100%;box-shadow:none}
 body .entry-content iframe{max-width:100%}
 body .entry-content .bookmarklet.hatena-embed{margin:0 0 10px!important}
+body .entry-content .embedly-card{border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:0 10px}
+hr,img{border:0}
 body .ninja_onebutton{padding:15px 0;margin:0 0 10px}
 body,figure{margin:0}
 body .ad{padding:25px 0;width:100%}
