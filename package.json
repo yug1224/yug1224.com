@@ -11,7 +11,7 @@
     "nginx": "cp blog.conf /etc/nginx/conf.d/ && nginx -s reload",
     "stop": "forever stop blog",
     "new:post": "gulp new:post",
-    "edit:post": "gulp edit:post",
+    "edit:post": "gulp edit:post -f",
     "upsert:post": "gulp upsert:post",
     "pub": "gulp pub"
   },

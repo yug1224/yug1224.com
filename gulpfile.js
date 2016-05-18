@@ -14,10 +14,6 @@ const mongojs = require('mongojs');
 const nodemon = require('nodemon');
 const path = require('path');
 const request = require('request');
-const rl = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 const stylus = require('gulp-stylus');
 const source = require('vinyl-source-stream');
 
@@ -130,16 +126,14 @@ image:
 
 // Edit post
 gulp.task('edit:post', (done) => {
-  rl.question('Enter arcive\'s _id: ', (input) => {
-    rl.close();
-
-    db.archives.find({_id: new ObjectId(input)}, (err, docs) => {
-      if(err) {
-        console.err(err);
-      } else {
-        let doc = docs[0];
-        let filepath = `./data/${doc._id}.md`;
-        let frontMatter = `---
+  const input = process.argv[4];
+  db.archives.find({_id: new ObjectId(input)}, (err, docs) => {
+    if(err) {
+      console.err(err);
+    } else {
+      let doc = docs[0];
+      let filepath = `./data/${doc._id}.md`;
+      let frontMatter = `---
 _id: ${doc._id}
 title: ${doc.title}
 create: ${moment(doc.create).format('YYYY-MM-DD HH:mm')}
@@ -150,17 +144,16 @@ image: ${doc.image ? doc.image : ''}
 ${doc.body}
 `;
 
-        fs.writeFile(filepath, frontMatter, (err) => {
-          if(err) {
-            console.err(err);
-          } else {
-            console.log(`Creating arcive: ${filepath}\n`);
-          }
-          done();
-          process.exit();
-        });
-      }
-    });
+      fs.writeFile(filepath, frontMatter, (err) => {
+        if(err) {
+          console.err(err);
+        } else {
+          console.log(`Creating arcive: ${filepath}\n`);
+        }
+        done();
+        process.exit();
+      });
+    }
   });
 });
 
