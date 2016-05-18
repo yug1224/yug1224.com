@@ -19,6 +19,14 @@ html(lang=lang)
     include ogp
 
     block head
+      
+    script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    script
+      :verbatim
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5265613840106782",
+          enable_page_level_ads: true
+        });
 
   body
     include header
