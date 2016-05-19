@@ -14,8 +14,9 @@ exports.atom = (req, res) ->
     body: 1
   sort =
     create: -1
+  limit = 20
 
-  common.getArchives({}, field, sort, null, null)
+  common.getArchives({}, field, sort, null, limit)
     .then (results) ->
       data =
         blog: config.blog
