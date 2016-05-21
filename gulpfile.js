@@ -21,24 +21,25 @@ const db = mongojs('blog', ['archives']);
 const ObjectId = mongojs.ObjectId;
 
 gulp.task('clean', (done) => {
-  del(['./dist/*'], done);
+  del(['./dst/*'], done);
 });
 
 gulp.task('scripts', () => {
-  gulp.src(['./src/scripts/*.coffee'])
-  .pipe(
-    foreach((stream, file) => {
-      let filename = path.basename(file.path, '.coffee');
-      return browserify({
-        entries: file.path,
-        extensions: ['.coffee'],
-        debug: true
+  return gulp.src(['./src/scripts/*.js'])
+    .pipe(
+      foreach((stream, file) => {
+        let filename = path.basename(file.path, '.js');
+        return browserify({
+          entries: file.path,
+          extensions: ['.js'],
+          debug: true
+        })
+        .transform('babelify', {presets: ['es2015']})
+        .bundle()
+        .pipe(source(`${filename}.js`));
       })
-      .bundle()
-      .pipe(source(`${filename}.js`));
-    })
-  )
-  .pipe(gulp.dest('./dist/js'));
+    )
+    .pipe(gulp.dest('./dst/js'));
 });
 
 gulp.task('styles', () => {
@@ -53,7 +54,7 @@ gulp.task('styles', () => {
   .pipe(filter.restore)
   .pipe(concat('app.css'))
   .pipe(minifycss({keepBreaks: true}))
-  .pipe(gulp.dest('./dist/css'));
+  .pipe(gulp.dest('./dst/css'));
 });
 
 gulp.task('watch', () => {
@@ -69,7 +70,7 @@ gulp.task('watch', () => {
 // vendor:fonts
 gulp.task('vendor:fonts', () => {
   gulp.src(['./node_modules/bootstrap/dist/fonts/*'])
-  .pipe(gulp.dest('./dist/fonts'));
+  .pipe(gulp.dest('./dst/fonts'));
 });
 
 // vendor
@@ -81,10 +82,11 @@ gulp.task('generate', (done) => {
 
 gulp.task('nodemon', () => {
   let options = {
-    script: './src/app.coffee',
+    script: './src/app.js',
     env: {
       NODE_ENV: 'development'
-    }
+    },
+    nodeArgs: ['--use-strict']
   };
   nodemon(options);
 });
@@ -127,6 +129,7 @@ image:
 // Edit post
 gulp.task('edit:post', (done) => {
   const input = process.argv[4];
+  console.log(input);
   db.archives.find({_id: new ObjectId(input)}, (err, docs) => {
     if(err) {
       console.err(err);
@@ -168,6 +171,10 @@ gulp.task('upsert:post', (done) => {
     }
   });
 
+  const sort = (a, b) => {
+    return a > b ? 1 : -1;
+  };
+
   for (let val of files) {
     promises.push(new Promise(function(resolve, reject){
       let data = fm(fs.readFileSync(`./data/${val}`, 'utf8'));
@@ -176,7 +183,7 @@ gulp.task('upsert:post', (done) => {
         title: attr.title,
         create: moment(attr.create, 'YYYY-MM-DD HH:mm').toDate(),
         modify: moment(attr.modify, 'YYYY-MM-DD HH:mm').toDate(),
-        categories: attr.categories,
+        categories: attr.categories.sort(sort),
         image: attr.image,
         body: data.body
       };
@@ -201,7 +208,7 @@ gulp.task('upsert:post', (done) => {
       process.exit();
     })
     .catch(function(err){
-      console.log(err);
+      console.log(err.stack);
       done();
       process.exit();
     });
