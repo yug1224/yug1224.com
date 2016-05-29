@@ -1,4 +1,3 @@
-body .entry-content img,body .entry-content video{max-width:100%;min-width:300px;position:relative}
 article,aside,body category-element a.link,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}
 .label,sub,sup{vertical-align:baseline}
 .glyphicon,body,body .entry-content img,body .meta,body>.container,html,sub,sup{position:relative}
@@ -20,22 +19,23 @@ body .meta{color:#888}
 body .meta>.icon{width:16px;height:16px;line-height:16px;font-size:14px;text-align:center}
 body .meta .category,body .meta time,body .meta>.author{margin:0 5px 0 0}
 body .meta>span.category:not(:last-child):after{content:","}
-body .entry-content img{border:.5em solid #fff;border-radius:.3em;box-shadow:rgba(0,0,0,.15) 0 1px 4px;box-sizing:border-box}
+body .entry-content video{position:relative;max-width:100%;min-width:300px}
+body .entry-content img{max-width:50%;left:25%;border:.5em solid #fff;border-radius:.3em;box-shadow:rgba(0,0,0,.15) 0 1px 4px;box-sizing:border-box}
 body .entry-content h2,body .entry-content h3{border-left:10px solid #007bbb;padding-left:5px}
 body .entry-content h2{border-bottom:2px solid #007bbb;margin-top:30px;margin-bottom:30px}
 body .entry-content .amazlet-box{border:1px solid;border-color:#eaeaea #ddd #d0d0d0;border-radius:5px;padding:10px;margin-bottom:10px!important;max-width:468px}
 body .entry-content .amazlet-box img{min-width:100%;box-shadow:none}
 body .entry-content iframe{max-width:100%}
 body .entry-content .bookmarklet.hatena-embed{margin:0 0 10px!important}
-body .entry-content .embedly-card{border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:0 10px}
+body .entry-content .embedly-card .embedly-card-hug{border:.5em solid #fff;border-radius:.3em;box-shadow:rgba(0,0,0,.15) 0 1px 4px;box-sizing:border-box}
 hr,img{border:0}
 body .ninja_onebutton{padding:15px 0;margin:0 0 10px}
 body,figure{margin:0}
 body .ad{padding:25px 0;width:100%}
 body blockquote{font-size:16px}
-h1{font-size:30px!important;margin:.67em 0}
-h2{font-size:26px!important}
-h3{font-size:22px!important}
+h1{font-size:26px!important;margin:.67em 0}
+h2{font-size:24px!important}
+h3{font-size:20px!important}
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
