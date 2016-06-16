@@ -20,7 +20,7 @@ body .meta>.icon{width:16px;height:16px;line-height:16px;font-size:14px;text-ali
 body .meta .category,body .meta time,body .meta>.author{margin:0 5px 0 0}
 body .meta>span.category:not(:last-child):after{content:","}
 body .entry-content video{position:relative;max-width:100%;min-width:300px}
-body .entry-content img{max-width:50%;left:25%;border:.5em solid #fff;border-radius:.3em;box-shadow:rgba(0,0,0,.15) 0 1px 4px;box-sizing:border-box}
+body .entry-content img{max-width:100%;border:.5em solid #fff;border-radius:.3em;box-shadow:rgba(0,0,0,.15) 0 1px 4px;box-sizing:border-box}
 body .entry-content h2,body .entry-content h3{border-left:10px solid #007bbb;padding-left:5px}
 body .entry-content h2{border-bottom:2px solid #007bbb;margin-top:30px;margin-bottom:30px}
 body .entry-content .amazlet-box{border:1px solid;border-color:#eaeaea #ddd #d0d0d0;border-radius:5px;padding:10px;margin-bottom:10px!important;max-width:468px}
