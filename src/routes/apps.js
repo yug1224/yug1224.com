@@ -7,8 +7,8 @@ exports.index = (req, res) => {
   Promise.all([
     common.getCategories(),
     common.getApps()
-  ]).then(function(results) {
-    let apps = results[1];
+  ]).then((results) => {
+    const apps = results[1];
     let data = {};
 
     if (apps.length === 0) {
@@ -41,9 +41,9 @@ exports.index = (req, res) => {
 
       res.status(200).render('apps_index', data);
     }
-  }).catch(function(err) {
+  }).catch((err) => {
     console.error(err);
-    let data = {
+    const data = {
       status: 500,
       content: 'Internal Server Error'
     };

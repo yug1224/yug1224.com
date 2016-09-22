@@ -28,7 +28,8 @@ gulp.task('scripts', () => {
   return gulp.src(['./src/scripts/*.js'])
     .pipe(
       foreach((stream, file) => {
-        let filename = path.basename(file.path, '.js');
+        const filename = path.basename(file.path, '.js');
+
         return browserify({
           entries: file.path,
           extensions: ['.js'],
@@ -43,7 +44,7 @@ gulp.task('scripts', () => {
 });
 
 gulp.task('styles', () => {
-  let filter = Filter('**/*.styl', {restore: true});
+  const filter = Filter('**/*.styl', {restore: true});
   gulp.src([
     './src/styles/*.styl',
     './node_modules/bootstrap/dist/css/bootstrap.css',
@@ -81,7 +82,7 @@ gulp.task('generate', (done) => {
 });
 
 gulp.task('nodemon', () => {
-  let options = {
+  const options = {
     script: './src/app.js',
     env: {
       NODE_ENV: 'development'
@@ -97,11 +98,11 @@ gulp.task('default', ['watch'], (done) => {
 
 // Create new post
 gulp.task('new:post', (done) => {
-  let now = new Date();
-  let _id = new ObjectId();
-  let filepath = `./data/${_id}.md`;
+  const now = new Date();
+  const _id = new ObjectId();
+  const filepath = `./data/${_id}.md`;
 
-  let frontMatter = `---
+  const frontMatter = `---
 _id: ${_id}
 title:
 create: ${moment(now).format('YYYY-MM-DD HH:mm')}
@@ -116,7 +117,7 @@ image:
 `;
 
   fs.writeFile(filepath, frontMatter, (err) => {
-    if(err) {
+    if (err) {
       console.err(err);
     } else {
       console.log(`Creating arcive: ${filepath}`);
@@ -131,12 +132,12 @@ gulp.task('edit:post', (done) => {
   const input = process.argv[4];
   console.log(input);
   db.archives.find({_id: new ObjectId(input)}, (err, docs) => {
-    if(err) {
+    if (err) {
       console.err(err);
     } else {
-      let doc = docs[0];
-      let filepath = `./data/${doc._id}.md`;
-      let frontMatter = `---
+      const doc = docs[0];
+      const filepath = `./data/${doc._id}.md`;
+      const frontMatter = `---
 _id: ${doc._id}
 title: ${doc.title}
 create: ${moment(doc.create).format('YYYY-MM-DD HH:mm')}
@@ -148,7 +149,7 @@ ${doc.body}
 `;
 
       fs.writeFile(filepath, frontMatter, (err) => {
-        if(err) {
+        if (err) {
           console.err(err);
         } else {
           console.log(`Creating arcive: ${filepath}\n`);
@@ -163,9 +164,9 @@ ${doc.body}
 
 // upsert
 gulp.task('upsert:post', (done) => {
-  let files = [];
-  let promises = [];
-  fs.readdirSync('./data').forEach(function(val){
+  const files = [];
+  const promises = [];
+  fs.readdirSync('./data').forEach((val) => {
     if (val.match(/\.md/)) {
       files.push(val);
     }
@@ -175,11 +176,11 @@ gulp.task('upsert:post', (done) => {
     return a > b ? 1 : -1;
   };
 
-  for (let val of files) {
-    promises.push(new Promise(function(resolve, reject){
-      let data = fm(fs.readFileSync(`./data/${val}`, 'utf8'));
-      let attr = data.attributes;
-      let doc = {
+  for (const val of files) {
+    promises.push(new Promise((resolve, reject) => {
+      const data = fm(fs.readFileSync(`./data/${val}`, 'utf8'));
+      const attr = data.attributes;
+      const doc = {
         title: attr.title,
         create: moment(attr.create, 'YYYY-MM-DD HH:mm').toDate(),
         modify: moment(attr.modify, 'YYYY-MM-DD HH:mm').toDate(),
@@ -191,8 +192,8 @@ gulp.task('upsert:post', (done) => {
         query: {_id: new ObjectId(attr._id)},
         update: doc,
         upsert: true
-      }, function (err, doc) {
-        if(err) {
+      }, (err, doc) => {
+        if (err) {
           reject(err);
         }
         else {
@@ -202,12 +203,12 @@ gulp.task('upsert:post', (done) => {
     }));
   }
   Promise.all(promises)
-    .then(function(results){
+    .then((results) => {
       console.log(results);
       done();
       process.exit();
     })
-    .catch(function(err){
+    .catch((err) => {
       console.log(err.stack);
       done();
       process.exit();
@@ -216,7 +217,7 @@ gulp.task('upsert:post', (done) => {
 
 // pub
 gulp.task('pub', () => {
-  let options = {
+  const options = {
     url: 'https://yug1224.superfeedr.com/',
     json: true,
     form: {
@@ -226,7 +227,7 @@ gulp.task('pub', () => {
   };
 
   request.post(options, (err, res) => {
-    if(err) {
+    if (err) {
       process.stderr.write(err);
     } else {
       process.stdout.write(`${res.statusCode} ${res.statusMessage}\n`);

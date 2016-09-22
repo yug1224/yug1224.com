@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 // 昔のURLをリダイレクト
 const redirect = require('./routes/redirect');
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   let url = req.url;
   url = url.replace(/\/$/, '');
 
@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 });
 
 // analytics trackingIDを追加
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.locals.analytics = config.GoogleAnalytics;
   next();
 });
@@ -55,17 +55,18 @@ app.get('/categories/:category', categories.show);
 app.get('/apps', apps.index);
 app.get('/atom.xml', xml.atom);
 app.get('/sitemap.xml', xml.sitemap);
-app.get('/robots.txt', function(req, res) {
+app.get('/robots.txt', (req, res) => {
   res.set('Content-Type', 'text/plain');
   res.status(200).render('robots', config);
 });
-app.get('/favicon.png', function(req, res) {
+app.get('/favicon.png', (req, res) => {
   res.sendFile(`${__dirname}/favicon.png`);
 });
 
 app.use(express.static(`${__dirname}/../dst`));
 
-server.listen(app.get('port'), function() {
+server.listen(app.get('port'), () => {
   console.log(`Server listen on port ${app.get('port')}`);
+
   return;
 });

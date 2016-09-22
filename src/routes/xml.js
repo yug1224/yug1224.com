@@ -17,7 +17,7 @@ exports.atom = (req, res) => {
   };
   const limit = 10;
 
-  return common.getArchives({}, field, sort, null, limit).then(function(results) {
+  return common.getArchives({}, field, sort, null, limit).then((results) => {
     const data = {
       blog: config.blog,
       archives: results
@@ -41,8 +41,9 @@ exports.atom = (req, res) => {
 
     res.set('Content-Type', 'text/xml');
     res.status(200).render('atom', data);
+
     return;
-  }).catch(function(err) {
+  }).catch((err) => {
     console.log(err.stack);
     const data = {
       blog: config.blog,
@@ -62,17 +63,18 @@ exports.sitemap = (req, res) => {
     create: -1
   };
 
-  common.getArchives({}, field, sort, null, null).then(function(results) {
+  common.getArchives({}, field, sort, null, null).then((results) => {
     const data = { archives: results };
     for (let i = 0; i < data.archives.length; i++) {
-      let val = data.archives[i];
+      const val = data.archives[i];
       val.loc = `${config.blog.url}/archives/${val._id}`;
       val.modify = moment(val.modify).toISOString();
     }
     res.set('Content-Type', 'text/xml');
     res.status(200).render('sitemap', data);
+
     return;
-  }).catch(function(err) {
+  }).catch((err) => {
     console.log(err.stack);
     const data = {
       blog: config.blog,

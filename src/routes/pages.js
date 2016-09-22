@@ -20,8 +20,8 @@ exports.show = (req, res) => {
   Promise.all([
     common.getCategories(),
     common.getArchives({}, {}, sort, skip, limit),
-    common.getCount({}, sort, skip+limit, limit)
-  ]).then(function(results) {
+    common.getCount({}, sort, skip + limit, limit)
+  ]).then((results) => {
     const archives = results[1];
     const data = {};
 

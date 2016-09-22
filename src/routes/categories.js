@@ -28,8 +28,8 @@ exports.show = (req, res) => {
   Promise.all([
     common.getCategories(),
     common.getArchives(query, field, sort, null, null)
-  ]).then(function(results) {
-    let archives = results[1];
+  ]).then((results) => {
+    const archives = results[1];
     const data = {};
 
     if (archives.length === 0) {
@@ -64,7 +64,7 @@ exports.show = (req, res) => {
 
       res.status(200).render('categories_show', data);
     }
-  }).catch(function(err) {
+  }).catch((err) => {
     console.log(err.stack);
     const data = {
       blog: config.blog,

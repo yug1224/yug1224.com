@@ -75,6 +75,7 @@ const getNext = (query) => {
     title: 1,
     create: 1
   };
+
   return getArchives(query, field, {}, null, 1).then((docs) => {
     const data = docs[0];
 
@@ -90,6 +91,7 @@ const getNext = (query) => {
     const sort = {
       create: -1
     };
+
     return getArchives(query, field, sort, 0, 1);
   });
 };
@@ -101,6 +103,7 @@ const getPrev = (query) => {
     title: 1,
     create: 1
   };
+
   return getArchives(query, field, {}, null, 1).then((docs) => {
     const data = docs[0];
 
@@ -116,6 +119,7 @@ const getPrev = (query) => {
     const sort = {
       create: 1
     };
+
     return getArchives(query, field, sort, 0, 1);
   });
 };

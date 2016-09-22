@@ -15,7 +15,8 @@
     "new:post": "gulp new:post",
     "edit:post": "gulp edit:post -f",
     "upsert:post": "gulp upsert:post",
-    "pub": "gulp pub"
+    "pub": "gulp pub",
+    "dev": "gulp"
   },
   "author": "",
   "license": "MIT",

@@ -121,7 +121,7 @@ exports.show = (req, res) => {
 
       res.status(200).render('archives_show', data);
     }
-  }).catch(function(err) {
+  }).catch((err) => {
     console.log(err.stack);
     const data = {
       blog: config.blog,
