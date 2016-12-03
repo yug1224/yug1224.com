@@ -3,6 +3,7 @@ article,aside,body category-element a.link,details,figcaption,figure,footer,head
 .glyphicon,body,body .entry-content img,body .meta,body>.container,html,sub,sup{position:relative}
 .navbar-fixed-bottom .navbar-collapse,.navbar-fixed-top .navbar-collapse,.pre-scrollable{max-height:340px}
 body,html{width:100%;height:100%;float:left}
+body{font-feature-settings:"palt"}
 body>.navbar{margin:0;padding:0;border:0;background-color:#007bbb}
 body>.navbar .navbar-collapse,body>.navbar .navbar-toggle{border-color:#eee}
 body>.navbar .navbar-toggle:focus,body>.navbar .navbar-toggle:hover{background-color:#209bcb}
