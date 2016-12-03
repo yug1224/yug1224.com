@@ -65,6 +65,15 @@ app.get('/favicon.png', (req, res) => {
 
 app.use(express.static(`${__dirname}/../dst`));
 
+app.use((req, res) => {
+  const data = {
+    blog: config.blog,
+    status: 404,
+    content: 'Page Not Found'
+  };
+  res.status(404).render('error', data);
+});
+
 server.listen(app.get('port'), () => {
   console.log(`Server listen on port ${app.get('port')}`);
 
