@@ -47,7 +47,7 @@ const getArchives = (query, field, sort, skip, limit) => {
     db.archives.find(query, field)
       .sort(sort)
       .skip(+skip)
-      .limit(limit, cb);
+      .limit(+limit, cb);
   });
 };
 exports.getArchives = getArchives;
@@ -63,7 +63,7 @@ const getCount = (query, sort, skip, limit) => {
     db.archives.find(query, {_id: 1})
       .sort(sort)
       .skip(+skip)
-      .limit(limit)
+      .limit(+limit)
       .count(cb);
   });
 };
