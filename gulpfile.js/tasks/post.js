@@ -9,7 +9,7 @@ const ObjectId = mongojs.ObjectId;
 
 
 // Create new post
-gulp.task('post:new', (done) => {
+gulp.task('posts:new', (done) => {
   const now = new Date();
   const _id = new ObjectId();
   const filepath = `./data/${_id}.md`;
@@ -41,7 +41,7 @@ image:
 });
 
 // Edit post
-gulp.task('post:edit', (done) => {
+gulp.task('posts:edit', (done) => {
   const input = process.argv[4];
   console.log(input);
   db.archives.find({_id: new ObjectId(input)}, (err, docs) => {
@@ -77,7 +77,7 @@ ${doc.body}
 
 
 // upsert
-gulp.task('post:upsert', (done) => {
+gulp.task('posts:upsert', (done) => {
   const files = [];
   const promises = [];
   fs.readdirSync('./data').forEach((val) => {

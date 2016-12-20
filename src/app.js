@@ -44,6 +44,7 @@ app.use((req, res, next) => {
 const pages = require('./routes/pages');
 const archives = require('./routes/archives');
 const categories = require('./routes/categories');
+const images = require('./routes/images');
 const apps = require('./routes/apps');
 const xml = require('./routes/xml');
 
@@ -52,6 +53,7 @@ app.get('/pages/:page', pages.show);
 app.get('/archives', archives.index);
 app.get('/archives/:_id', archives.show);
 app.get('/categories/:category', categories.show);
+app.get('/images/:_id', images.show);
 app.get('/apps', apps.index);
 app.get('/atom.xml', xml.atom);
 app.get('/sitemap.xml', xml.sitemap);
