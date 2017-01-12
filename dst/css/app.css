@@ -3,7 +3,7 @@ article,aside,body category-element a.link,details,figcaption,figure,footer,head
 .glyphicon,body,body .entry-content img,body .meta,body>.container,html,sub,sup{position:relative}
 .navbar-fixed-bottom .navbar-collapse,.navbar-fixed-top .navbar-collapse,.pre-scrollable{max-height:340px}
 body,html{width:100%;height:100%;float:left}
-body{font-feature-settings:"palt"}
+body{font-feature-settings:"palt";font-size:16px!important}
 body>.navbar{margin:0;padding:0;border:0;background-color:#007bbb}
 body>.navbar .navbar-collapse,body>.navbar .navbar-toggle{border-color:#eee}
 body>.navbar .navbar-toggle:focus,body>.navbar .navbar-toggle:hover{background-color:#209bcb}
@@ -17,7 +17,7 @@ body aside .badge{float:right}
 .btn-group>.btn-group,.btn-toolbar .btn,.btn-toolbar .btn-group,.btn-toolbar .input-group,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.dropdown-menu{float:left}
 body .entry-title{margin-top:0}
 body .meta{color:#888}
-body .meta>.icon{width:16px;height:16px;line-height:16px;font-size:14px;text-align:center}
+body .meta>.icon{width:16px;height:16px;line-height:16px;font-size:16px;text-align:center}
 body .meta .category,body .meta time,body .meta>.author{margin:0 5px 0 0}
 body .meta>span.category:not(:last-child):after{content:","}
 body .entry-content video{position:relative;max-width:100%;min-width:300px}
@@ -41,7 +41,10 @@ body .ad{padding:25px 0;width:100%}
 body blockquote{font-size:16px}
 h1{font-size:26px!important;margin:.67em 0}
 h2{font-size:24px!important}
-h3{font-size:20px!important}
+h3{font-size:22px!important}
+h4{font-size:20px!important}
+h5{font-size:18px!important}
+h6{font-size:16px!important}
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -361,7 +364,7 @@ h2,h3{page-break-after:avoid}
 .glyphicon-menu-up:before{content:"\e260"}
 *,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html{font-size:10px;-webkit-tap-highlight-color:transparent}
-body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.42857143;color:#333}
 button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 a{color:#337ab7;text-decoration:none}
 a:focus,a:hover{color:#23527c;text-decoration:underline}
