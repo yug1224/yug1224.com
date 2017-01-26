@@ -36,9 +36,9 @@ gulp.task('scripts', () => {
 gulp.task('styles', () => {
   const filter = Filter('**/*.styl', {restore: true});
   gulp.src([
-    './src/styles/*.styl',
     './node_modules/bootstrap/dist/css/bootstrap.css',
-    './node_modules/highlight.js/styles/zenburn.css'
+    './node_modules/highlight.js/styles/zenburn.css',
+    './src/styles/*.styl'
   ])
   .pipe(filter)
   .pipe(stylus())
