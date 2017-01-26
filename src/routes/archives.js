@@ -118,7 +118,6 @@ exports.show = (req, res) => {
         image: archive.image ? archive.image : config.twitter.image,
         url: `${config.blog.url}/archives/${archive._id}`
       };
-      data.analytics = config.GoogleAnalytics;
 
       res.status(200).render('archives_show', data);
     }
