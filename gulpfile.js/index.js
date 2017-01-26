@@ -4,13 +4,8 @@ const runSequence = require('run-sequence');
 requireDir('./tasks', {recurse: true});
 
 gulp.task('watch', () => {
-  gulp.watch([
-    './src/scripts/*.coffee',
-    './src/lib/*.coffee'
-  ], ['scripts']);
-  gulp.watch([
-    './src/styles/*.styl'
-  ], ['styles']);
+  gulp.watch(['./src/**/*.js'], ['scripts']);
+  gulp.watch(['./src/**/*.styl'], ['styles']);
 });
 
 gulp.task('default', ['watch'], (done) => {

@@ -1,0 +1,24 @@
+extends lib/layout.pug
+
+block head
+  meta(name="robots", content="noindex")
+
+block content
+  article
+    header.page-header
+      h1.entry-title!= "Archives"
+      include lib/ad
+
+  each archive in archives
+    article
+      header.page-header
+        .meta
+          span.glyphicon.glyphicon-calendar.icon
+          time.time(datetime=archive.datetime, pubdate)!= archive.date
+          span.glyphicon.glyphicon-tag.icon
+          each category in archive.categories
+            span.category
+              a(href="/categories/"+category)!= category
+      h3.entry-title
+        a(href="/archives/"+archive._id)!= archive.title
+      .entry-content!= archive.intro

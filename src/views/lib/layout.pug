@@ -1,0 +1,46 @@
+doctype html
+html(lang=lang)
+  head
+    title!= blog.title
+    meta(charset="UTF-8")
+    meta(content="width=device-width, minimum-scale=1.0, maximum-scale=1.0", name="viewport")
+    link(rel='alternate', hreflang='ja', href=blog.url)
+    link(rel="icon", type="image/png", href=image)
+    link(rel="apple-touch-icon", href=image)
+    link(rel="stylesheet", href="/css/app.css")
+
+    // Google ウェブマスターツール
+    meta(name="google-site-verification", content="UnFxiSPluNvTkHKrlWyPHBPeQqe7nl9af7oWjMEKbs4")
+
+    // Google Analytics Tracking Code
+    include analytics
+
+    // OGP
+    include ogp
+
+    block head
+
+    // Google AdSense
+    script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    script
+      :verbatim
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5265613840106782",
+          enable_page_level_ads: true
+        });
+
+  body
+    include header
+
+    .container
+      .row
+        article.col-xs-12.col-sm-9.main
+          block content
+          include ad
+        aside.col-xs-12.col-sm-3
+          include categories
+          include ad
+
+    script(src="/js/app.js")
+
+    block scripts

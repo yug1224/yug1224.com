@@ -4,7 +4,6 @@ const https = require('https');
 exports.show = (req, res) => {
   Promise.resolve().then(() => {
     return new Promise((resolve) => {
-      console.log(req.params._id);
       const url = `https://dl.dropboxusercontent.com/u/3189929/images/${req.params._id}`;
       https.get(url, (res) => {
         const data = [];

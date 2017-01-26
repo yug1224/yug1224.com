@@ -1,0 +1,16 @@
+nav.navbar.navbar-inverse.navbar-static-top(role="navigation")
+  .container
+    .navbar-header
+      button.navbar-toggle(type="button", data-toggle="collapse", data-target="#topHeader")
+        span.sr-only|Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href="/")!= "@YuG1224 blog"
+
+    .collapse.navbar-collapse#topHeader
+      ul.nav.navbar-nav
+        li
+          a(href="/archives")!= "Archives"
+        //- li
+        //-   a(href="/apps")!= "Apps"

@@ -2,9 +2,9 @@ const browserify = require('browserify');
 const concat = require('gulp-concat');
 const del = require('del');
 const Filter = require('gulp-filter');
-const foreach = require('gulp-foreach');
+const flatmap = require('gulp-flatmap');
 const gulp = require('gulp');
-const minifycss = require('gulp-minify-css');
+const cleanCss = require('gulp-clean-css');
 const path = require('path');
 const runSequence = require('run-sequence');
 const stylus = require('gulp-stylus');
@@ -15,9 +15,9 @@ gulp.task('clean', (done) => {
 });
 
 gulp.task('scripts', () => {
-  return gulp.src(['./src/scripts/*.js'])
+  return gulp.src(['./src/**/*.js'])
     .pipe(
-      foreach((stream, file) => {
+      flatmap((stream, file) => {
         const filename = path.basename(file.path, '.js');
 
         return browserify({
@@ -25,9 +25,9 @@ gulp.task('scripts', () => {
           extensions: ['.js'],
           debug: true
         })
-        .transform('babelify', {presets: ['es2015']})
-        .bundle()
-        .pipe(source(`${filename}.js`));
+          .transform('babelify', {presets: ['es2015']})
+          .bundle()
+          .pipe(source(`${filename}.js`));
       })
     )
     .pipe(gulp.dest('./dst/js'));
@@ -38,20 +38,23 @@ gulp.task('styles', () => {
   gulp.src([
     './node_modules/bootstrap/dist/css/bootstrap.css',
     './node_modules/highlight.js/styles/zenburn.css',
-    './src/styles/*.styl'
+    './src/**/*.styl'
   ])
-  .pipe(filter)
-  .pipe(stylus())
-  .pipe(filter.restore)
-  .pipe(concat('app.css'))
-  .pipe(minifycss({keepBreaks: true}))
-  .pipe(gulp.dest('./dst/css'));
+    .pipe(filter)
+    .pipe(stylus())
+    .pipe(filter.restore)
+    .pipe(concat('app.css'))
+    .pipe(cleanCss({
+      inline: ['all'],
+      keepBreaks: true
+    }))
+    .pipe(gulp.dest('./dst/css'));
 });
 
 // vendor:fonts
 gulp.task('vendor:fonts', () => {
   gulp.src(['./node_modules/bootstrap/dist/fonts/*'])
-  .pipe(gulp.dest('./dst/fonts'));
+    .pipe(gulp.dest('./dst/fonts'));
 });
 
 // vendor

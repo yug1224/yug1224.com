@@ -1,0 +1,34 @@
+extends lib/layout.pug
+
+block head
+  meta(name="robots", content="noindex")
+
+block content
+  each archive in archives
+    article
+      header.page-header
+        .meta
+          span.glyphicon.glyphicon-calendar.icon
+          time.time(datetime=archive.datetime, pubdate)!= archive.date
+          span.glyphicon.glyphicon-tag.icon
+          each category in archive.categories
+            span.category
+              a(href="/categories/"+category)!= category
+      h1.entry-title
+        a(href="/archives/"+archive._id)!= archive.title
+      .entry-content!= archive.intro
+      footer
+        a.btn.btn-default(href="/archives/"+archive._id)
+          |Read More &rarr;
+        include lib/ad
+
+  ul.pager
+    if prev
+      li.previous
+        a(href=prev)
+          |&larr; Preview
+
+    if next
+      li.next
+        a(href=next)
+          |Next &rarr;

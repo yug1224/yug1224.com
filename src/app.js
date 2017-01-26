@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 app.set('port', config.port);
 app.set('views', `${__dirname}/views`);
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.set('x-powered-by', false);
 app.use(compression({
   level: 1

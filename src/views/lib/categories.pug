@@ -1,0 +1,10 @@
+section
+  .panel.panel-default
+    .panel-heading
+      |Category
+    ul.list-group
+      each category in categories
+        li.list-group-item
+          a(href="/categories/"+category._id)
+            span!= category._id
+            span.badge!= category.count

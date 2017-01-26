@@ -1,0 +1,37 @@
+extends lib/layout.pug
+
+block head
+
+block content
+  article
+    header.page-header
+      .meta
+        span.glyphicon.glyphicon-calendar.icon
+        time.time(datetime=archive.datetime, pubdate)!= archive.date
+        span.glyphicon.glyphicon-tag.icon
+        each category in archive.categories
+          span.category
+            a(href="/categories/"+category)!= category
+    h1.entry-title!= archive.title
+    include lib/ad
+    .entry-content!= archive.body
+    footer
+      include lib/share
+      .meta
+        span.glyphicon.glyphicon-calendar.icon
+        time.time(datetime=archive.datetime, pubdate)!= archive.date
+        span.glyphicon.glyphicon-tag.icon
+        each category in archive.categories
+          span.category
+            a(href="/categories/"+category)!= category
+
+  ul.pager
+    if prev
+      li.previous
+        a(href="/archives/"+prev._id)
+          |&larr; #{prev.title}
+
+    if next
+      li.next
+        a(href="/archives/"+next._id)
+          |#{next.title} &rarr;
