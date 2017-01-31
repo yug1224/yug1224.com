@@ -14,7 +14,7 @@ app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 app.set('x-powered-by', false);
 app.use(compression({
-  level: 1
+  level: 6
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

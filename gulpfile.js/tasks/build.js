@@ -1,4 +1,5 @@
 const browserify = require('browserify');
+const buffer = require('vinyl-buffer');
 const concat = require('gulp-concat');
 const del = require('del');
 const Filter = require('gulp-filter');
@@ -9,13 +10,14 @@ const path = require('path');
 const runSequence = require('run-sequence');
 const stylus = require('gulp-stylus');
 const source = require('vinyl-source-stream');
+const uglify = require('gulp-uglify');
 
 gulp.task('clean', (done) => {
   del(['./dst/*'], done);
 });
 
 gulp.task('scripts', () => {
-  return gulp.src(['./src/**/*.js'])
+  return gulp.src(['./src/scripts/*.js'])
     .pipe(
       flatmap((stream, file) => {
         const filename = path.basename(file.path, '.js');
@@ -30,6 +32,8 @@ gulp.task('scripts', () => {
           .pipe(source(`${filename}.js`));
       })
     )
+    .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest('./dst/js'));
 });
 
