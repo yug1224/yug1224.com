@@ -42,7 +42,7 @@ exports.show = (req, res) => {
         'Content-Type': 'image/png'
       },
       status: 200
-    });
+    }, config.maxAge);
     res.set('Content-Type', 'image/png');
     res.status(200).send(data);
   }).catch((err) => {
