@@ -71,7 +71,7 @@ exports.show = (req, res) => {
         data: data,
         status: 200,
         view: 'pages_show'
-      }, config.maxAge);
+      });
       res.status(200).render('pages_show', data);
     }
   }).catch((err) => {

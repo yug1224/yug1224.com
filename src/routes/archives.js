@@ -61,7 +61,7 @@ exports.index = (req, res) => {
         data: data,
         status: 200,
         view: 'archives_index'
-      }, config.maxAge);
+      });
       res.status(200).render('archives_index', data);
     }
   }).catch((err) => {
@@ -130,7 +130,7 @@ exports.show = (req, res) => {
         data: data,
         status: 200,
         view: 'archives_show'
-      }, config.maxAge);
+      });
       res.status(200).render('archives_show', data);
     }
   }).catch((err) => {

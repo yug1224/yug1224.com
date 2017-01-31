@@ -47,7 +47,7 @@ exports.atom = (req, res) => {
       },
       status: 200,
       view: 'atom'
-    }, config.maxAge);
+    });
     res.set('Content-Type', 'text/xml');
     res.status(200).render('atom', data);
 
@@ -87,7 +87,7 @@ exports.sitemap = (req, res) => {
       },
       status: 200,
       view: 'sitemap'
-    }, config.maxAge);
+    });
     res.set('Content-Type', 'text/xml');
     res.status(200).render('sitemap', data);
 

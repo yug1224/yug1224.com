@@ -45,7 +45,7 @@ exports.index = (req, res) => {
         data: data,
         status: 200,
         view: 'apps_index'
-      }, config.maxAge);
+      });
       res.status(200).render('apps_index', data);
     }
   }).catch((err) => {
