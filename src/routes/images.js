@@ -1,5 +1,8 @@
+const cache = require('memory-cache');
 const imagemagick = require('imagemagick-native');
 const https = require('https');
+
+const config = require('../config');
 
 exports.show = (req, res) => {
   Promise.resolve().then(() => {
@@ -33,6 +36,13 @@ exports.show = (req, res) => {
       });
     });
   }).then((data) => {
+    cache.put(req.url, {
+      data: data,
+      headers: {
+        'Content-Type': 'image/png'
+      },
+      status: 200
+    }, config.maxAge);
     res.set('Content-Type', 'image/png');
     res.status(200).send(data);
   }).catch((err) => {

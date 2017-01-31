@@ -14,7 +14,8 @@ const config = {
     card: 'summary',
     site: '@YuG1224',
     image: 'https://db.tt/Nfw3zxcJ'
-  }
+  },
+  maxAge: 1 * 1000 * 60 * 60 * 24
 };
 
 module.exports = config;

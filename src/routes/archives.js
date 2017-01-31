@@ -1,3 +1,4 @@
+const cache = require('memory-cache');
 const moment = require('moment');
 const md = require('marked');
 md.setOptions({
@@ -56,6 +57,11 @@ exports.index = (req, res) => {
         url: config.blog.url
       };
 
+      cache.put(req.url, {
+        data: data,
+        status: 200,
+        view: 'archives_index'
+      }, config.maxAge);
       res.status(200).render('archives_index', data);
     }
   }).catch((err) => {
@@ -120,6 +126,11 @@ exports.show = (req, res) => {
       };
       data.trackingID = config.GoogleAnalytics.trackingID;
 
+      cache.put(req.url, {
+        data: data,
+        status: 200,
+        view: 'archives_show'
+      }, config.maxAge);
       res.status(200).render('archives_show', data);
     }
   }).catch((err) => {

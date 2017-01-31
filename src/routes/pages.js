@@ -1,3 +1,4 @@
+const cache = require('memory-cache');
 const moment = require('moment');
 const md = require('marked');
 md.setOptions({
@@ -66,6 +67,11 @@ exports.show = (req, res) => {
         url: config.blog.url
       };
 
+      cache.put(req.url, {
+        data: data,
+        status: 200,
+        view: 'pages_show'
+      }, config.maxAge);
       res.status(200).render('pages_show', data);
     }
   }).catch((err) => {

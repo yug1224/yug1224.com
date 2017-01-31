@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const cache = require('memory-cache');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const express = require('express');
@@ -20,6 +21,25 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
+
+// cache
+app.use((req, res, next) => {
+  const memory = cache.get(req.url);
+
+  if (memory) {
+    Object.keys(memory.headers || {}).forEach((key) => {
+      const val = memory.headers[key];
+      res.set(key, val);
+    });
+    if (memory.view) {
+      res.status(memory.status).render(memory.view, memory.data);
+    } else {
+      res.status(memory.status).send(memory.data);
+    }
+  } else {
+    next();
+  }
+});
 
 // 昔のURLをリダイレクト
 const redirect = require('./routes/redirect');
@@ -65,7 +85,9 @@ app.get('/favicon.png', (req, res) => {
   res.sendFile(`${__dirname}/favicon.png`);
 });
 
-app.use(express.static(`${__dirname}/../dst`));
+app.use(express.static(`${__dirname}/../dst`, {
+  maxAge: config.maxAge
+}));
 
 app.use((req, res) => {
   const data = {

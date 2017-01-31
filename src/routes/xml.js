@@ -1,3 +1,4 @@
+const cache = require('memory-cache');
 const moment = require('moment');
 
 const config = require('../config');
@@ -39,6 +40,14 @@ exports.atom = (req, res) => {
       }
     }
 
+    cache.put(req.url, {
+      data: data,
+      headers: {
+        'Content-Type': 'text/xml'
+      },
+      status: 200,
+      view: 'atom'
+    }, config.maxAge);
     res.set('Content-Type', 'text/xml');
     res.status(200).render('atom', data);
 
@@ -70,6 +79,15 @@ exports.sitemap = (req, res) => {
       val.loc = `${config.blog.url}/archives/${val._id}`;
       val.modify = moment(val.modify).toISOString();
     }
+
+    cache.put(req.url, {
+      data: data,
+      headers: {
+        'Content-Type': 'text/xml'
+      },
+      status: 200,
+      view: 'sitemap'
+    }, config.maxAge);
     res.set('Content-Type', 'text/xml');
     res.status(200).render('sitemap', data);
 

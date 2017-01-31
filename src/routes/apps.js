@@ -1,3 +1,5 @@
+const cache = require('memory-cache');
+
 const config = require('../config');
 const common = require('./lib/common');
 
@@ -39,6 +41,11 @@ exports.index = (req, res) => {
         url: config.blog.url
       };
 
+      cache.put(req.url, {
+        data: data,
+        status: 200,
+        view: 'apps_index'
+      }, config.maxAge);
       res.status(200).render('apps_index', data);
     }
   }).catch((err) => {

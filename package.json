@@ -34,6 +34,7 @@
     "jquery": "^2.1.1",
     "jstransformer-verbatim": "^1.0.0",
     "marked": "^0.3.2",
+    "memory-cache": "^0.1.6",
     "minimatch": "^3.0.3",
     "moment": "^2.8.2",
     "mongojs": "^2.4.0",
