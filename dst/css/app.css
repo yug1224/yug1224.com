@@ -1488,6 +1488,7 @@ body .entry-content .amazlet-box{border:1px solid;border-color:#eaeaea #ddd #d0d
 body .entry-content .amazlet-box img{min-width:100%;box-shadow:none}
 body .entry-content iframe{max-width:100%}
 body .entry-content .bookmarklet.hatena-embed{margin:0 0 10px}
+body .entry-content .embedly-card{padding:1rem 0}
 body .entry-content .embedly-card .embedly-card-hug{border:.5em solid #fff;border-radius:.3em;box-shadow:rgba(0,0,0,.15) 0 1px 4px;box-sizing:border-box}
 body .entry-content table{border:1px solid #ddd;border-radius:3px;margin:0 0 10px;overflow-wrap:break-word;table-layout:fixed;width:100%}
 body .entry-content table thead{background-color:#f5f5f5}
