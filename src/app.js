@@ -73,7 +73,7 @@ app.get('/pages/:page', pages.show);
 app.get('/archives', archives.index);
 app.get('/archives/:_id', archives.show);
 app.get('/categories/:category', categories.show);
-app.get('/images/:_id', images.show);
+app.get('/images/:yyyy/:mm/:dd/:filename', images.show);
 app.get('/apps', apps.index);
 app.get('/atom.xml', xml.atom);
 app.get('/sitemap.xml', xml.sitemap);
