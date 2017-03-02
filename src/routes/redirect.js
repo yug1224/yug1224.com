@@ -1,4 +1,4 @@
-const paths = {
+module.exports = {
   '/2015/09/29/iPhone-6s-Plus': '/563d9b67bf652a600632d064',
   '/2015/08/24/gaiq': '/563d9b67bf652a600632d063',
   '/2015/08/22/Anker-PowerPort-4': '/563d9b67bf652a600632d062',
@@ -103,4 +103,3 @@ const paths = {
   '/2013/08/17/installoctopress': '/563d9b67bf652a600632cfff',
   '/2013/08/17/helloworld': '/563d9b67bf652a600632cffe'
 };
-exports.paths = paths;

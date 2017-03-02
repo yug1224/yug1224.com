@@ -44,8 +44,7 @@ app.use((req, res, next) => {
 // 昔のURLをリダイレクト
 const redirect = require('./routes/redirect');
 app.use((req, res, next) => {
-  let url = req.url;
-  url = url.replace(/\/$/, '');
+  const url = req.url.replace(/\/$/, '');
 
   if (['GET', 'HEAD'].indexOf(req.method) >= 0 && redirect[url]) {
     res.redirect(301, `/archives${redirect[url]}`);
