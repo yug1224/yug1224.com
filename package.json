@@ -22,6 +22,7 @@
   "license": "MIT",
   "browserify": {},
   "dependencies": {
+    "bluebird": "^3.4.7",
     "body-parser": "^1.14.1",
     "bootstrap": "^3.3.1",
     "compression": "^1.6.0",
@@ -38,6 +39,7 @@
     "minimatch": "^3.0.3",
     "moment": "^2.8.2",
     "mongojs": "^2.4.0",
+    "node-fetch": "^1.6.3",
     "path": "^0.4.9",
     "pug": "^2.0.0-beta9"
   },

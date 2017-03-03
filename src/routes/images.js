@@ -1,23 +1,31 @@
+const Promise = require('bluebird');
+const fetch = require('node-fetch');
 const cache = require('memory-cache');
 const gm = require('gm').subClass({imageMagick: true});
 const request = require('request');
 
 exports.show = (req, res) => {
   Promise.resolve().then(() => {
-    return new Promise((resolve, reject) => {
-      const {yyyy, mm, dd, filename} = req.params;
-      const {w, h} = req.query;
-      const file = `${yyyy}/${mm}/${dd}/${filename}`;
-      const url = `https://dl.dropboxusercontent.com/u/3189929/images/${file}`;
+    const {yyyy, mm, dd, filename} = req.params;
+    const {w, h} = req.query;
+    const file = `${yyyy}/${mm}/${dd}/${filename}`;
+    const url = `https://dl.dropboxusercontent.com/u/3189929/images/${file}`;
 
-      gm(request(url)).resize(w, h).toBuffer('PNG', (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
+    if (!w && !h) {
+      return fetch(url).then((res) => {
+        return res.buffer();
       });
-    });
+    } else {
+      return new Promise((resolve, reject) => {
+        gm(request(url)).resize(w, h).toBuffer('PNG', (err, buffer) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(buffer);
+          }
+        });
+      });
+    }
   }).then((data) => {
     cache.put(req.url, {
       data: data,
