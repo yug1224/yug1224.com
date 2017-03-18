@@ -64,6 +64,12 @@ gulp.task('vendor:fonts', () => {
 // vendor
 gulp.task('vendor', ['vendor:fonts']);
 
+// images
+gulp.task('images', () => {
+  gulp.src(['./src/images/**'])
+    .pipe(gulp.dest('./dst/images'));
+});
+
 gulp.task('build', (done) => {
-  runSequence('clean', 'vendor', 'scripts', 'styles', done);
+  runSequence('clean', 'vendor', 'scripts', 'styles', 'images', done);
 });

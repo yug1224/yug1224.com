@@ -16,6 +16,7 @@
     "edit": "gulp posts:edit -f",
     "upsert": "gulp posts:upsert",
     "pub": "gulp pub",
+    "build": "gulp build",
     "dev": "gulp"
   },
   "author": "",

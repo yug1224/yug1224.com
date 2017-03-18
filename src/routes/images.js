@@ -1,23 +1,30 @@
 const Promise = require('bluebird');
-const fetch = require('node-fetch');
 const cache = require('memory-cache');
+const fs = require('fs');
 const gm = require('gm').subClass({imageMagick: true});
-const request = require('request');
+const path = require('path');
 
 exports.show = (req, res) => {
   Promise.resolve().then(() => {
     const {yyyy, mm, dd, filename} = req.params;
     const {w, h} = req.query;
     const file = `${yyyy}/${mm}/${dd}/${filename}`;
-    const url = `https://dl.dropboxusercontent.com/u/3189929/images/${file}`;
+    const filePath = path.resolve('dst/images', file);
+    console.log(filePath);
 
     if (!w && !h) {
-      return fetch(url).then((res) => {
-        return res.buffer();
+      return new Promise((resolve, reject) => {
+        fs.readFile(filePath, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
       });
     } else {
       return new Promise((resolve, reject) => {
-        gm(request(url)).resize(w, h).toBuffer('PNG', (err, buffer) => {
+        gm(filePath).resize(w, h).toBuffer('PNG', (err, buffer) => {
           if (err) {
             reject(err);
           } else {
