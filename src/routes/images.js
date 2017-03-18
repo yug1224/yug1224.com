@@ -10,7 +10,6 @@ exports.show = (req, res) => {
     const {w, h} = req.query;
     const file = `${yyyy}/${mm}/${dd}/${filename}`;
     const filePath = path.resolve('dst/images', file);
-    console.log(filePath);
 
     if (!w && !h) {
       return new Promise((resolve, reject) => {
