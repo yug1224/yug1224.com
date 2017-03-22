@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const fm = require('front-matter');
 const fs = require('fs');
 const gulp = require('gulp');
@@ -42,12 +43,22 @@ image:
 
 // Edit post
 gulp.task('posts:edit', (done) => {
-  const input = process.argv[4];
+  const input = process.argv.slice(4)[0].split(' ');
   console.log(input);
-  db.archives.find({_id: new ObjectId(input)}, (err, docs) => {
-    if (err) {
-      console.err(err);
-    } else {
+
+  const promises = [];
+
+  input.forEach((val) => {
+
+    const p = new Promise((resolve, reject) => {
+      db.archives.find({_id: new ObjectId(val)}, (err, docs) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(docs);
+        }
+      });
+    }).then((docs) => {
       const doc = docs[0];
       const filepath = `./data/${doc._id}.md`;
       const frontMatter = `
@@ -62,16 +73,53 @@ image: ${doc.image ? doc.image : ''}
 ${doc.body}
 `.trimLeft();
 
-      fs.writeFile(filepath, frontMatter, (err) => {
-        if (err) {
-          console.err(err);
-        } else {
-          console.log(`Creating arcive: ${filepath}\n`);
-        }
-        done();
-        process.exit();
+      return new Promise((resolve, reject) => {
+        fs.writeFile(filepath, frontMatter, (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            console.log(`Creating arcive: ${filepath}\n`);
+            resolve();
+          }
+        });
       });
-    }
+    });
+    promises.push(p);
+
+//     db.archives.find({_id: new ObjectId(val)}, (err, docs) => {
+//       if (err) {
+//         console.err(err);
+//       } else {
+//         const doc = docs[0];
+//         const filepath = `./data/${doc._id}.md`;
+//         const frontMatter = `
+// ---
+// _id: ${doc._id}
+// title: ${doc.title}
+// create: ${moment(doc.create).format('YYYY-MM-DD HH:mm')}
+// modify: ${moment(new Date()).format('YYYY-MM-DD HH:mm')}
+// categories: [${doc.categories.join(', ')}]
+// image: ${doc.image ? doc.image : ''}
+// ---
+// ${doc.body}
+// `.trimLeft();
+//
+//         fs.writeFile(filepath, frontMatter, (err) => {
+//           if (err) {
+//             console.err(err);
+//           } else {
+//             console.log(`Creating arcive: ${filepath}\n`);
+//           }
+//           done();
+//           process.exit();
+//         });
+//       }
+//     });
+  });
+
+  Promise.all(promises).then(() => {
+    done();
+    process.exit();
   });
 });
 

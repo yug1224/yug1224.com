@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use((req, res, next) => {
   const memory = cache.get(req.url);
 
-  if (memory) {
+  if (memory && process.env.NODE_ENV !== 'development') {
     Object.keys(memory.headers || {}).forEach((key) => {
       const val = memory.headers[key];
       res.set(key, val);
