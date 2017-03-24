@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const fm = require('front-matter');
 const fs = require('fs');
 const gulp = require('gulp');
+const yaml = require('js-yaml');
 const moment = require('moment');
 const mongojs = require('mongojs');
 
@@ -14,23 +15,17 @@ gulp.task('posts:new', (done) => {
   const now = new Date();
   const _id = new ObjectId();
   const filepath = `./data/${_id}.md`;
+  const frontMatter = yaml.safeDump({
+    _id: `${_id}`,
+    title: '',
+    create: moment(now).format('YYYY-MM-DD HH:mm'),
+    modify: moment(now).format('YYYY-MM-DD HH:mm'),
+    categories: [],
+    image: ''
+  });
+  const data = `---\n${frontMatter}---\n<!-- more -->\n`;
 
-  const frontMatter = `
----
-_id: ${_id}
-title:
-create: ${moment(now).format('YYYY-MM-DD HH:mm')}
-modify: ${moment(now).format('YYYY-MM-DD HH:mm')}
-categories: []
-image:
----
-
-
-
-<!-- more -->
-`.trimLeft();
-
-  fs.writeFile(filepath, frontMatter, (err) => {
+  fs.writeFile(filepath, data, (err) => {
     if (err) {
       console.err(err);
     } else {
@@ -61,20 +56,18 @@ gulp.task('posts:edit', (done) => {
     }).then((docs) => {
       const doc = docs[0];
       const filepath = `./data/${doc._id}.md`;
-      const frontMatter = `
----
-_id: ${doc._id}
-title: ${doc.title}
-create: ${moment(doc.create).format('YYYY-MM-DD HH:mm')}
-modify: ${moment(new Date()).format('YYYY-MM-DD HH:mm')}
-categories: [${doc.categories.join(', ')}]
-image: ${doc.image ? doc.image : ''}
----
-${doc.body}
-`.trimLeft();
+      const frontMatter = yaml.safeDump({
+        _id: `${doc._id}`,
+        title: doc.title,
+        create: moment(doc.create).format('YYYY-MM-DD HH:mm'),
+        modify: moment(new Date()).format('YYYY-MM-DD HH:mm'),
+        categories: doc.categories,
+        image: doc.image ? doc.image : ''
+      });
+      const data = `---\n${frontMatter}---\n${doc.body}`;
 
       return new Promise((resolve, reject) => {
-        fs.writeFile(filepath, frontMatter, (err) => {
+        fs.writeFile(filepath, data, (err) => {
           if (err) {
             reject(err);
           } else {
@@ -85,36 +78,6 @@ ${doc.body}
       });
     });
     promises.push(p);
-
-//     db.archives.find({_id: new ObjectId(val)}, (err, docs) => {
-//       if (err) {
-//         console.err(err);
-//       } else {
-//         const doc = docs[0];
-//         const filepath = `./data/${doc._id}.md`;
-//         const frontMatter = `
-// ---
-// _id: ${doc._id}
-// title: ${doc.title}
-// create: ${moment(doc.create).format('YYYY-MM-DD HH:mm')}
-// modify: ${moment(new Date()).format('YYYY-MM-DD HH:mm')}
-// categories: [${doc.categories.join(', ')}]
-// image: ${doc.image ? doc.image : ''}
-// ---
-// ${doc.body}
-// `.trimLeft();
-//
-//         fs.writeFile(filepath, frontMatter, (err) => {
-//           if (err) {
-//             console.err(err);
-//           } else {
-//             console.log(`Creating arcive: ${filepath}\n`);
-//           }
-//           done();
-//           process.exit();
-//         });
-//       }
-//     });
   });
 
   Promise.all(promises).then(() => {
