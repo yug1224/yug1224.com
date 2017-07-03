@@ -13,7 +13,7 @@ const config = {
   twitter: {
     card: 'summary',
     site: '@YuG1224',
-    image: 'https://db.tt/Nfw3zxcJ'
+    image: 'https://blog.yug1224.com/images/profile/profile.png'
   },
   maxAge: 1 * 1000 * 60 * 60 * 24 * 30
 };
