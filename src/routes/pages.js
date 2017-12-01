@@ -1,5 +1,5 @@
 const cache = require('memory-cache');
-const moment = require('moment');
+const format = require('date-fns/format');
 const md = require('marked');
 md.setOptions({
   highlight(code) {
@@ -13,6 +13,11 @@ const common = require('./lib/common');
 exports.show = (req, res) => {
   res.locals.lang = 'ja';
 
+  const query = {
+    create: {
+      $lt: new Date()
+    }
+  };
   const page = req.params.page ? +req.params.page : 1;
   const sort = {create: -1};
   const limit = 5;
@@ -20,8 +25,8 @@ exports.show = (req, res) => {
 
   Promise.all([
     common.getCategories(),
-    common.getArchives({}, {}, sort, skip, limit),
-    common.getCount({}, sort, skip + limit, limit)
+    common.getArchives(query, {}, sort, skip, limit),
+    common.getCount(query, sort, skip + limit, limit)
   ]).then((results) => {
     const archives = results[1];
     const data = {};
@@ -34,8 +39,8 @@ exports.show = (req, res) => {
     } else {
       for (let i = 0; i < archives.length; i++) {
         const archive = archives[i];
-        archive.datetime = moment(archive.create).format('YYYY-MM-DD HH:mm');
-        archive.date = moment(archive.create).format('MMM DD, YYYY');
+        archive.datetime = format(archive.create, 'YYYY-MM-DD HH:mm');
+        archive.date = format(archive.create, 'MMM DD, YYYY');
         archive.body = md(archive.body);
         archive.intro = archive.body.split('<!-- more -->')[0];
       }

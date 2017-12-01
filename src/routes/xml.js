@@ -1,11 +1,15 @@
 const cache = require('memory-cache');
-const moment = require('moment');
 
 const config = require('../config');
 const common = require('./lib/common');
 const md = require('marked');
 
 exports.atom = (req, res) => {
+  const query = {
+    create: {
+      $lt: new Date()
+    }
+  };
   const field = {
     _id: 1,
     modify: 1,
@@ -18,20 +22,20 @@ exports.atom = (req, res) => {
   };
   const limit = 10;
 
-  return common.getArchives({}, field, sort, null, limit).then((results) => {
+  return common.getArchives(query, field, sort, null, limit).then((results) => {
     const data = {
       blog: config.blog,
       archives: results
     };
     for (let i = 0; i < data.archives.length; i++) {
       const val = data.archives[i];
-      val.body = md(val.body).replace(/<("[^"]*"|'[^']*'|[^'">])*\>/g, '')
+      val.body = md(val.body).replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
         .replace('\r\n', ' ')
         .replace(/\n|\r/g, ' ')
         .slice(0, 200);
 
       val.loc = `${config.blog.url}/archives/${val._id}`;
-      val.modify = moment(val.modify).toISOString();
+      val.modify = val.modify.toISOString();
       if (!data.blog.modify) {
         data.blog.modify = val.modify;
       }
@@ -64,6 +68,11 @@ exports.atom = (req, res) => {
 };
 
 exports.sitemap = (req, res) => {
+  const query = {
+    create: {
+      $lt: new Date()
+    }
+  };
   const field = {
     _id: 1,
     modify: 1
@@ -72,12 +81,12 @@ exports.sitemap = (req, res) => {
     create: -1
   };
 
-  common.getArchives({}, field, sort, null, null).then((results) => {
+  common.getArchives(query, field, sort, null, null).then((results) => {
     const data = { archives: results };
     for (let i = 0; i < data.archives.length; i++) {
       const val = data.archives[i];
       val.loc = `${config.blog.url}/archives/${val._id}`;
-      val.modify = moment(val.modify).toISOString();
+      val.modify = val.modify.toISOString();
     }
 
     cache.put(req.url, {

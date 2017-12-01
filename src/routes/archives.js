@@ -1,5 +1,5 @@
 const cache = require('memory-cache');
-const moment = require('moment');
+const format = require('date-fns/format');
 const md = require('marked');
 md.setOptions({
   highlight(code) {
@@ -12,6 +12,11 @@ const common = require('./lib/common');
 exports.index = (req, res) => {
   res.locals.lang = 'ja';
 
+  const query = {
+    create: {
+      $lt: new Date()
+    }
+  };
   const field = {
     _id: 1,
     title: 1,
@@ -22,7 +27,7 @@ exports.index = (req, res) => {
 
   Promise.all([
     common.getCategories(),
-    common.getArchives({}, field, sort, null, null)
+    common.getArchives(query, field, sort, null, null)
   ]).then((results) => {
     const archives = results[1];
     const data = {};
@@ -35,8 +40,8 @@ exports.index = (req, res) => {
     } else {
       for (let i = 0; i < archives.length; i++) {
         const archive = archives[i];
-        archive.datetime = moment(archive.create).format('YYYY-MM-DD HH:mm');
-        archive.date = moment(archive.create).format('MMM DD, YYYY');
+        archive.datetime = format(archive.create, 'YYYY-MM-DD HH:mm');
+        archive.date = format(archive.create, 'MMM DD, YYYY');
       }
 
       data.blog = {
@@ -98,8 +103,8 @@ exports.show = (req, res) => {
       data.content = 'Page Not Found';
       res.status(404).render('error', data);
     } else {
-      archive.datetime = moment(archive.create).format('YYYY-MM-DD HH:mm');
-      archive.date = moment(archive.create).format('MMM DD, YYYY');
+      archive.datetime = format(archive.create, 'YYYY-MM-DD HH:mm');
+      archive.date = format(archive.create, 'MMM DD, YYYY');
       archive.body = md(archive.body);
 
       data.blog = {
@@ -116,7 +121,7 @@ exports.show = (req, res) => {
         card: config.twitter.card,
         site: config.twitter.site,
         title: data.title,
-        description: archive.body.replace(/<("[^"]*"|'[^']*'|[^'">])*\>/g, '')
+        description: archive.body.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
           .replace('\r\n', ' ')
           .replace(/\n|\r/g, ' ')
           .slice(0, 200),

@@ -1,5 +1,5 @@
 const cache = require('memory-cache');
-const moment = require('moment');
+const format = require('date-fns/format');
 const md = require('marked');
 md.setOptions({
   highlight(code) {
@@ -14,7 +14,10 @@ exports.show = (req, res) => {
   res.locals.lang = 'ja';
 
   const query = {
-    categories: req.params.category
+    categories: req.params.category,
+    create: {
+      $lt: new Date()
+    }
   };
   const field = {
     _id: 1,
@@ -41,8 +44,8 @@ exports.show = (req, res) => {
     } else {
       for (let i = 0; i < archives.length; i++) {
         const archive = archives[i];
-        archive.datetime = moment(archive.create).format('YYYY-MM-DD HH:mm');
-        archive.date = moment(archive.create).format('MMM DD, YYYY');
+        archive.datetime = format(archive.create, 'YYYY-MM-DD HH:mm');
+        archive.date = format(archive.create, 'MMM DD, YYYY');
       }
 
       data.blog = {

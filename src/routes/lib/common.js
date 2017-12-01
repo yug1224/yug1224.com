@@ -128,6 +128,7 @@ exports.getPrev = getPrev;
 const getCategories = () => {
   return new Promise((resolve, reject) => {
     const operators = [];
+    operators.push({ $match: { create: { $lt: new Date() }}});
     operators.push({ $project: { categories: 1 }});
     operators.push({ $unwind: '$categories' });
     operators.push({ $sort: { categories: -1 }});
