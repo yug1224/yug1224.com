@@ -1,0 +1,61 @@
+---
+const { class: className, ...rest } = Astro.props
+
+import ExperienceItem from './ExperienceItem.astro'
+---
+
+<div class={`card bg-neutral shadow-xl ${className}`} {...rest}>
+  <div class="card-body p-4">
+    <h2 class="card-title">Experience</h2>
+    <ul
+      class="timeline timeline-snap-icon timeline-compact timeline-vertical text-sm"
+    >
+      <li>
+        <hr class="bg-secondary" />
+        <ExperienceItem
+          date="2011/04/01"
+          company="SoftBank Mobile Corp."
+          position="Software Developer"
+        />
+        <hr class="bg-secondary" />
+      </li>
+      <li>
+        <hr class="bg-secondary" />
+        <ExperienceItem
+          date="2016/01/01"
+          company="CyberAgent, Inc."
+          position="Software Developer"
+        />
+        <hr class="bg-secondary" />
+      </li>
+      <li>
+        <hr class="bg-secondary" />
+        <ExperienceItem
+          date="2016/10/01"
+          company="Recruit Lifestyle Co., Ltd"
+          position="Software Developer"
+          position2="Project Manager"
+        />
+        <hr class="bg-secondary" />
+      </li>
+      <li>
+        <hr class="bg-secondary" />
+        <ExperienceItem
+          date="2021/10/01"
+          company="RAKUS Co,. Ltd."
+          position="Assistant Manager"
+        />
+        <hr class="bg-secondary" />
+      </li>
+      <li>
+        <hr class="bg-secondary" />
+        <ExperienceItem
+          date="2022/08/01"
+          company="HRBrain, Inc."
+          position="Engineering Manager"
+        />
+        <hr class="bg-secondary" />
+      </li>
+    </ul>
+  </div>
+</div>

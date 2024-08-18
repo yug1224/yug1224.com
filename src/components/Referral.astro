@@ -1,0 +1,16 @@
+---
+const { class: className, ...rest } = Astro.props
+
+import Link from './Link.astro'
+---
+
+<div class={`card bg-neutral shadow-xl ${className}`} {...rest}>
+  <div class="card-body p-4">
+    <h2 class="card-title">PR（HRBrain）</h2>
+    <Link href="https://x.com/HRBrain_hr_dev">X</Link>
+    <Link href="https://hrbrain.connpass.com/">connpass</Link>
+    <Link href="https://qiita.com/organizations/hrbrain">Qiita</Link>
+    <Link href="https://zenn.dev/p/hrbrain">Zenn</Link>
+    <Link href="https://hrmos.co/pages/hrbrain/jobs/00401">recruit</Link>
+  </div>
+</div>

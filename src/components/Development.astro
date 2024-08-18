@@ -1,0 +1,17 @@
+---
+const { class: className, ...rest } = Astro.props
+
+import Link from './Link.astro'
+---
+
+<div class={`card bg-neutral shadow-xl ${className}`} {...rest}>
+  <div class="card-body p-4">
+    <h2 class="card-title">Development</h2>
+    <Link href="https://github.com/yug1224">GitHub</Link>
+    <Link href="https://qiita.com/yug1224">Qiita</Link>
+    <Link href="https://zenn.dev/yug1224">Zenn</Link>
+    <Link href="https://connpass.com/user/YuG_1224/">connpass</Link>
+    <Link href="https://b.hatena.ne.jp/yug1224/">Hatena Bookmark</Link>
+    <Link href="https://x.com/technews4869">technews4869</Link>
+  </div>
+</div>
