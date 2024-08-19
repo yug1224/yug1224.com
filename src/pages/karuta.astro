@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="かるた" description="かるた">
+  <main class="flex p-4 gap-4 m-auto max-w-6xl flex-col">
+    <div class="flex flex-col gap-2 group/repeat">
+      <label>再生回数</label>
+      <input
+        type="number"
+        placeholder="1"
+        class="input input-bordered w-full"
+        value="1"
+        min="0"
+        max="2"
+        value="1"
+        step="1"
+      />
+    </div>
+    <div class="flex flex-col gap-2 group/rate">
+      <label>再生速度</label>
+      <input
+        type="number"
+        placeholder="1"
+        class="input input-bordered w-full"
+        value="1"
+        min="0.1"
+        max="10"
+        value="1"
+        step="0.1"
+      />
+    </div>
+    <div class="flex flex-col gap-2 group/delay">
+      <label>再生間隔</label>
+      <input
+        type="number"
+        placeholder="1"
+        class="input input-bordered w-full"
+        value="1"
+        min="0"
+        max="10"
+        value="1"
+        step="1"
+      />
+    </div>
+    <div class="flex flex-row gap-2">
+      <button class="btn btn-neutral flex-auto">リセット</button>
+      <button class="btn btn-neutral flex-auto">シャッフル</button>
+    </div>
+    <div class="flex flex-row gap-2 group group/play">
+      <input type="checkbox" />
+      <button class="btn btn-neutral flex-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+          height="28"
+          width="28"
+          fill="currentColor"
+          class="group-has-[:checked]:hidden"
+          ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+          <path
+            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
+          ></path></svg
+        >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 320 512"
+          height="28"
+          width="28"
+          fill="currentColor"
+          class="hidden group-has-[:checked]:block"
+          ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+          <path
+            d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-32 0z"
+          ></path></svg
+        >
+      </button>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { delay, shuffle } from 'es-toolkit'
+  const uttr = new SpeechSynthesisUtterance()
+
+  // const getVoices = () => {
+  //   console.table(
+  //     speechSynthesis.getVoices()?.filter((v) => v.lang === 'ja-JP'),
+  //   )
+  //   const values = speechSynthesis?.getVoices().reduce((acc, v) => {
+  //     if (v.lang === 'ja-JP') {
+  //       acc.push(v.name)
+  //     }
+  //     return acc
+  //   }, [])
+
+  //   document.querySelector('textarea#huga').value = values.join('\n')
+  // }
+
+  speechSynthesis.speak(uttr)
+  // getVoices()
+  // window.speechSynthesis.onvoiceschanged = getVoices
+
+  const phrases = [
+    'あさつゆに\nぬれてかがやく\nこだいはす',
+    'かわごえの\nおとなりひびく\nときのかね',
+    'さくらそう\nかれんにやさしく\nけんのはな',
+  ]
+
+  const shuffledPhrases = shuffle(phrases)
+  console.log(shuffledPhrases)
+
+  const button = document.querySelector('.group\\/play button')
+  button.addEventListener('click', async () => {
+    const input = document.querySelector('.group\\/play input')
+    const isPray = input.checked
+    const isPaused = speechSynthesis.paused
+    console.log(isPray, isPaused)
+
+    if (isPray) {
+      input.checked = false
+      speechSynthesis.pause()
+      console.log('pause')
+      return
+    }
+
+    if (isPaused) {
+      speechSynthesis.resume()
+      console.log('resume')
+      return
+    }
+
+    for await (const phrase of shuffledPhrases) {
+      input.checked = true
+      uttr.text = phrase
+      uttr.lang = 'ja-JP'
+      uttr.rate = document.querySelector('.group\\/rate input').value
+
+      speechSynthesis.speak(uttr)
+      while (speechSynthesis.speaking) await delay(0)
+      await delay(+document.querySelector('.group\\/delay input').value * 1000)
+    }
+    input.checked = false
+  })
+</script>
