@@ -1,0 +1,15 @@
+---
+const { class: className, ...rest } = Astro.props
+
+import Link from './Link.astro'
+---
+
+<div class={`card bg-neutral shadow-xl ${className}`} {...rest}>
+  <div class="card-body p-4">
+    <h2 class="card-title">Socials</h2>
+    <Link href="https://x.com/yug1224">X</Link>
+    <Link href="https://bsky.app/profile/yug1224.com">Bluesky </Link>
+    <Link href="https://discord.com/users/428791622655016961">Discord </Link>
+    <Link href="https://youtrust.jp/users/yug1224">YOUTRUST</Link>
+  </div>
+</div>

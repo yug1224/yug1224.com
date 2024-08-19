@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"blog.archives"},{"v":1,"key":{"create":1.0},"name":"create_1","ns":"blog.archives"}]}

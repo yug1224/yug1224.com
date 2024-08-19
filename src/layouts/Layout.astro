@@ -1,0 +1,35 @@
+---
+import '../global.css'
+const { title, description } = Astro.props
+import FaviconImage from '../assets/favicon.png'
+import ProfileImage from '../assets/profile.jpg'
+---
+
+<html lang="ja" data-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/jpeg" href={FaviconImage.src} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="sitemap" href={new URL('/sitemap-index.xml', Astro.site)} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- OGP -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ProfileImage.src, Astro.url)} />
+    <meta property="og:url" content="https://yug1224.com/" />
+    <meta property="og:site_name" content={title} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@yug1224" />
+    <meta name="twitter:creator" content="@yug1224" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ProfileImage.src, Astro.url)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

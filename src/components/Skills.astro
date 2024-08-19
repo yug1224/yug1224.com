@@ -1,0 +1,50 @@
+---
+const { class: className, ...rest } = Astro.props
+import { Picture } from 'astro:assets'
+---
+
+<div class={`card bg-neutral shadow-xl ${className}`} {...rest}>
+  <div class="card-body p-4">
+    <h2 class="card-title">Skills</h2>
+
+    <a
+      class="md:hidden"
+      href="https://skillicons.dev/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <Picture
+        alt="スキル画像"
+        formats={['avif', 'webp']}
+        inferSize={true}
+        src="https://skillicons.dev/icons?perline=8&i=ts,js,html,sass,css,react,vue,jquery,redux,pinia,next,nuxt,astro,jest,sentry,vite,webpack,npm,yarn,deno,nodejs,nginx,git,github,aws,gcp,netlify,githubactions,vscode,emacs"
+      />
+    </a>
+    <a
+      class="max-md:hidden lg:hidden"
+      href="https://skillicons.dev/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <Picture
+        alt="スキル画像"
+        formats={['avif', 'webp']}
+        inferSize={true}
+        src="https://skillicons.dev/icons?perline=12&i=ts,js,html,sass,css,react,vue,jquery,redux,pinia,next,nuxt,astro,jest,sentry,vite,webpack,npm,yarn,deno,nodejs,nginx,git,github,aws,gcp,netlify,githubactions,vscode,emacs"
+      />
+    </a>
+    <a
+      class="max-lg:hidden"
+      href="https://skillicons.dev/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <Picture
+        alt="スキル画像"
+        formats={['avif', 'webp']}
+        inferSize={true}
+        src="https://skillicons.dev/icons?perline=15&i=ts,js,html,sass,css,react,vue,jquery,redux,pinia,next,nuxt,astro,jest,sentry,vite,webpack,npm,yarn,deno,nodejs,nginx,git,github,aws,gcp,netlify,githubactions,vscode,emacs"
+      />
+    </a>
+  </div>
+</div>

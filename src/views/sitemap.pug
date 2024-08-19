@@ -1,8 +1,0 @@
-doctype xml
-urlset(xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
-  each val in archives
-    url
-      loc!= val.loc
-      lastmod!= val.modify
-      changefreq!= 'daily'
-      priority!= "0.5"
