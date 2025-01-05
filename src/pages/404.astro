@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import Development from '../components/Development.astro';
+import Experience from '../components/Experience.astro';
+import Profile from '../components/Profile.astro';
+import Referral from '../components/Referral.astro';
+import Skills from '../components/Skills.astro';
+import Socials from '../components/Socials.astro';
+
+export const prerender = true;
+---
+
+<Layout title="404 Not Found" description="ページが見つかりませんでした">
+  <!--
+    default : @media (min-width: 640px) { ... }   : 2x7=14
+    md      : @media (min-width: 768px) { ... }   : 3x4=12
+    lg      : @media (min-width: 1024px) { ... }  : 4x3=12
+  -->
+
+  <main class="grid p-4 gap-3 m-auto max-w-6xl h-dvh place-content-center">
+    <div class="card bg-neutral shadow-xl">
+      <div class="card-body p-4">404 Not Found</div>
+    </div>
+  </main>
+</Layout>

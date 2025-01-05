@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "yug1224.com",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
@@ -9,13 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.2",
-    "@astrojs/sitemap": "^3.1.6",
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.13.3",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.4",
+    "astro": "^5.1.2",
     "autoprefixer": "^10.4.20",
-    "daisyui": "^4.12.10",
-    "tailwindcss": "^3.4.9",
-    "typescript": "^5.5.4"
+    "daisyui": "^4.12.23",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
   }
 }
