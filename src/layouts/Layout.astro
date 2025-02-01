@@ -2,7 +2,7 @@
 import '../global.css';
 const { title, description } = Astro.props;
 import FaviconImage from '../assets/favicon.png';
-import ProfileImage from '../assets/profile.jpg';
+import OgpImage from '../assets/ogp.jpg';
 ---
 
 <html lang="ja" data-theme="night">
@@ -18,7 +18,7 @@ import ProfileImage from '../assets/profile.jpg';
     <!-- OGP -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ProfileImage.src, Astro.url)} />
+    <meta property="og:image" content={new URL(OgpImage.src, Astro.url)} />
     <meta property="og:url" content="https://yug1224.com/" />
     <meta property="og:site_name" content={title} />
     <meta property="og:type" content="website" />
@@ -27,7 +27,7 @@ import ProfileImage from '../assets/profile.jpg';
     <meta name="twitter:creator" content="@yug1224" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ProfileImage.src, Astro.url)} />
+    <meta name="twitter:image" content={new URL(OgpImage.src, Astro.url)} />
   </head>
   <body>
     <slot />
