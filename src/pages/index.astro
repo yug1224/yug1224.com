@@ -4,7 +4,6 @@ import Layout from '../layouts/Layout.astro';
 import Development from '../components/Development.astro';
 import Experience from '../components/Experience.astro';
 import Profile from '../components/Profile.astro';
-import Referral from '../components/Referral.astro';
 import Skills from '../components/Skills.astro';
 import Socials from '../components/Socials.astro';
 ---
@@ -14,21 +13,19 @@ import Socials from '../components/Socials.astro';
   description="I am a software developer based in Japan, passionate about front-end development and people management."
 >
   <!--
-    default : @media (min-width: 640px) { ... }   : 2x7=14
-    md      : @media (min-width: 768px) { ... }   : 3x4=12
-    lg      : @media (min-width: 1024px) { ... }  : 4x3=12
+    default : @media (min-width: 640px) { ... }   : 2x6=12
+    md      : @media (min-width: 768px) { ... }   : 2x4=8
+    lg      : @media (min-width: 1024px) { ... }  : 3x3=9
   -->
 
   <main
-    class="grid p-4 gap-3 m-auto max-w-6xl grid-cols-2 grid-rows-7 md:grid-cols-3 md:grid-rows-4 lg:grid-cols-4 lg:grid-rows-5"
+    class="grid p-4 gap-3 m-auto max-w-6xl grid-cols-2 grid-rows-6 md:grid-cols-2 md:grid-rows-4 lg:grid-cols-3 lg:grid-rows-3"
   >
     <!-- 自己紹介 -->
-    <Profile class="col-start-1 col-span-2 row-span-1 md:col-span-3" />
+    <Profile class="col-start-1 col-span-2 row-span-1 md:col-span-2" />
 
     <!-- 職務経歴 -->
-    <Experience
-      class="col-start-1 col-span-2 row-span-2 md:col-span-1 lg:col-start-4"
-    />
+    <Experience class="col-start-1 col-span-2 row-span-2 md:col-span-1" />
 
     <!-- SNS -->
     <Socials class="col-start-1 col-span-2 row-span-1 md:col-span-1" />
@@ -36,12 +33,9 @@ import Socials from '../components/Socials.astro';
     <!-- Development -->
     <Development class="col-start-1 col-span-2 row-span-1 md:col-span-1" />
 
-    <!-- リファラル -->
-    <Referral class="col-start-1 col-span-2 row-span-1 md:col-span-1" />
-
     <!-- 経験スキル -->
     <Skills
-      class="col-start-1 col-span-2 row-span-1 md:col-span-3 lg:col-span-4"
+      class="col-start-1 col-span-2 row-span-1 md:col-span-2 lg:col-span-3"
     />
   </main>
 </Layout>

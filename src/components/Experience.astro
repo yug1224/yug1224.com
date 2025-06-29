@@ -1,7 +1,7 @@
 ---
-const { class: className, ...rest } = Astro.props
+const { class: className, ...rest } = Astro.props;
 
-import ExperienceItem from './ExperienceItem.astro'
+import ExperienceItem from './ExperienceItem.astro';
 ---
 
 <div class={`card bg-neutral shadow-xl ${className}`} {...rest}>
@@ -53,6 +53,15 @@ import ExperienceItem from './ExperienceItem.astro'
           date="2022/08/01"
           company="HRBrain, Inc."
           position="Engineering Manager"
+        />
+        <hr class="bg-secondary" />
+      </li>
+      <li>
+        <hr class="bg-secondary" />
+        <ExperienceItem
+          date="2025/07/01"
+          company="Dress Code Inc."
+          position="Product Developer"
         />
         <hr class="bg-secondary" />
       </li>
